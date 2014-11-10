@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="TKC_Silverlight.View.UC_SearchKeywordByItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:TKC_Silverlight"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <local:RowIndicatorConverter x:Key="rowIndicatorConverter" />
+        </ResourceDictionary>
+        
+        <!--使LayoutGroup和其中的内容没有空白-->
+        <Style x:Key="CustomGroupBoxStyle" TargetType="dxlc:GroupBox">
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style x:Key="CustomTabStyle" TargetType="dx:DXTabItem">
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style x:Key="CustomTabsStyle" TargetType="dx:DXTabControl">
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <dxlc:LayoutControl Name="layoutControl1" Orientation="Vertical" TabsStyle="{StaticResource CustomTabsStyle}" TabStyle="{StaticResource CustomTabStyle}"  GroupBoxStyle="{StaticResource CustomGroupBoxStyle}" >
+
+            <dxlc:LayoutGroup Header="宝贝信息" Name="layoutGroupTop" Height="70" Padding="10" View="GroupBox" IsCollapsible="True" >
+                <dxlc:LayoutControl Padding="0" Orientation="Horizontal">
+                    <TextBlock Width="200" VerticalAlignment="Center" >请输入宝贝链接（或从宝贝列表中选择）：</TextBlock>
+                    <dxlc:FlowLayoutControl Padding="0" Orientation="Horizontal" MaximizedElement="{Binding ElementName=txtItemIdOrUrl}" MaximizedElementPosition="Left">
+
+                        <dxe:TextEdit x:Name="txtItemIdOrUrl" NullText="http://item.taobao.com/item.htm?id=xxxxxxx" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnSearchKeyword" Content="找词" Width="100" Click="btnSearchKeyword_Click"></Button>
+                            <Button x:Name="btnOpenItem" Content="打开宝贝" Width="100" Click="btnOpenItem_Click"></Button>
+                        </StackPanel>
+
+                    </dxlc:FlowLayoutControl>
+                </dxlc:LayoutControl>
+            </dxlc:LayoutGroup>
+
+            <dxlc:LayoutGroup x:Name="layoutGroupBottom" View="Tabs" >
+                <dxlc:LayoutGroup Header="宝贝列表" x:Name="layoutGroupItemList" Padding="0" >
+                    <dxg:GridControl x:Name="gdItems" EndSorting="gd_EndSorting" SelectedItemChanged="gdItems_SelectedItemChanged" AutoGenerateColumns="None" EnableSmartColumnsGeneration="False" >
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn AllowEditing="False" Width="30" Header="序号">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RowData.RowHandle.Value, Converter={StaticResource rowIndicatorConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="pic_url" Header="宝贝图片" AllowColumnFiltering="False" FixedWidth="True" Width="70">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding RowData.Row.pic_url}" Stretch="Uniform" Margin="3" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                                <!--另一种写法
+                                    <dxg:GridColumn.DisplayTemplate>
+                                        <ControlTemplate>
+                                            <Image Source="{Binding EditValue, RelativeSource={RelativeSource TemplatedParent}}" Stretch="Uniform" Margin="3"  />
+                                        </ControlTemplate>
+                                    </dxg:GridColumn.DisplayTemplate>-->
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="item_title" Header="宝贝标题" Width="330" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="cid" Header="类目ID" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="categroy_name" Header="类目名称" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="price" Header="价格" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="quantity" Header="库存" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="sales_count" Header="销量" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="publish_time" Header="发布时间" Width="100" ReadOnly="True" />
+                        </dxg:GridControl.Columns>
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" Name="tableViewItems" AllowEditing="True" AutoWidth="True" ShowSearchPanelMode="Always" ShowGroupPanel="False" ShowFilterPanelMode="ShowAlways" />
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                    <!--<dxlc:LayoutGroup Header="店铺所有宝贝" HorizontalAlignment="Stretch">
+                        暂时只有店铺所有宝贝，后期加入历史搜索宝贝，需要将layoutGroupItemList设置 View="Tabs"
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup Header="历史搜索宝贝" HorizontalAlignment="Stretch"></dxlc:LayoutGroup>-->
+                </dxlc:LayoutGroup>
+
+                <dxlc:LayoutGroup Header="关键词列表" x:Name="layoutGroupKeywords" Padding="0" Orientation="Vertical" >
+                    <dxlc:LayoutGroup Header="关键词操作" Name="layoutGroupKeywordOpt" HorizontalAlignment="Stretch" Height="70" Padding="10" View="GroupBox" IsCollapsible="True" >
+                        <Button x:Name="btnLoadWordSubData" Content="加载占内外比" Width="100" Visibility="Collapsed" ></Button>
+                        <Button x:Name="btnCopy" Content="复制表格" Width="100" ></Button>
+                        <Button x:Name="btnCopyWord" Content="复制关键词" Width="100" ></Button>
+                        <Button x:Name="btnCopyWordPrice" Content="复制关键词及均价" Width="110" ></Button>
+                        
+                    </dxlc:LayoutGroup>
+                    <dxg:GridControl x:Name="gdKeywords" EndSorting="gd_EndSorting" SelectionMode="Cell" AutoGenerateColumns="None" EnableSmartColumnsGeneration="False"  >
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn AllowEditing="False" Width="50" Header="序号">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RowData.RowHandle.Value, Converter={StaticResource rowIndicatorConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="similar" Header="宝贝相关度" Width="80" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="word" Header="关键词" Width="350" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="impressions" Header="周日均展现" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="click" Header="周日均点击" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="cpc" Header="市场均价" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="ctr" Header="点击率" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="competition" Header="竞争度" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="cost" Header="花费" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="directpay" Header="直接成交金额" Width="100" ReadOnly="True" Visible="False" />
+                            <dxg:GridColumn FieldName="indirectpay" Header="间接成交金额" Width="100" ReadOnly="True" Visible="False" />
+                            <dxg:GridColumn FieldName="totalpay" Header="总成交金额" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="directpaycount" Header="直接成交笔数" Width="100" ReadOnly="True" Visible="False" />
+                            <dxg:GridColumn FieldName="indirectpaycount" Header="间接成交笔数" Width="100" ReadOnly="True" Visible="False" />
+                            <dxg:GridColumn FieldName="totalpaycount" Header="总成交笔数" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="favitemcount" Header="收藏宝贝数" Width="100" ReadOnly="True" Visible="False" />
+                            <dxg:GridColumn FieldName="favshopcount" Header="收藏店铺数" Width="100" ReadOnly="True" Visible="False" />
+                            <dxg:GridColumn FieldName="totalfavcount" Header="总收藏数" Width="100" ReadOnly="True" />
+                            <dxg:GridColumn FieldName="roi" Header="投入产出比" Width="100" ReadOnly="True"  />
+                            <dxg:GridColumn FieldName="rate" Header="点击转化率" Width="100" ReadOnly="True" Visible="False"/>
+                        </dxg:GridControl.Columns>
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" Name="tableViewKeywords" AutoWidth="True" ShowSearchPanelMode="Always" ShowGroupPanel="False" ShowFilterPanelMode="ShowAlways" />
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+
+
+
+        </dxlc:LayoutControl>
+    </Grid>
+</UserControl>

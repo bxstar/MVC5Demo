@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="TKC_Silverlight.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="508" d:DesignWidth="798" 
+
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+    xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar" 
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid">
+    <UserControl.Resources>
+        <Style TargetType="dxn:NavBarGroup">
+            <Setter Property="FontSettings">
+                <Setter.Value>
+                    <dxn:FontSettings FontSize="14" FontWeight="Black" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White">
+        <dxdo:DockLayoutManager Name="dockLayoutManager1">
+            <dxdo:DockLayoutManager.LayoutRoot>
+                <dxdo:LayoutGroup Caption="LayoutRoot" TabCaption="LayoutRoot" AllowClose="False">
+                    <dxdo:LayoutPanel Caption="功能列表" TabCaption="功能列表" AllowClose="False" ItemWidth="200" >
+                        <dxn:NavBarControl HorizontalAlignment="Left"  Name="navBarControl1" VerticalAlignment="Top">
+                            <dxn:NavBarGroup Header="推广计划" Height="400" HorizontalAlignment="Left" Name="navBarGroup1" VerticalAlignment="Top" >
+                                <dxn:NavBarItem Content="推广计划维护" Height="100" HorizontalAlignment="Left" Name="navBarItem11" VerticalAlignment="Top" Click="navBarItem_Click" />
+                                <dxn:NavBarItem Content="（宝贝）推广组维护" Height="100" HorizontalAlignment="Left" Name="navBarItem12" VerticalAlignment="Top" Click="navBarItem_Click" />
+                                <dxn:NavBarItem Content="关键词维护" Height="100" HorizontalAlignment="Left" Name="navBarItem13" VerticalAlignment="Top" Click="navBarItem_Click" />
+                                <dxn:NavBarItem Content="开车伴侣" Height="100" HorizontalAlignment="Left" Name="navBarItem14" VerticalAlignment="Top" Click="navBarItem_Click" />
+                                <dxn:NavBarItem Content="策略维护" Height="100" HorizontalAlignment="Left" Name="navBarItem15" VerticalAlignment="Top" Click="navBarItem_Click" />
+                                <dxn:NavBarItem Content="词表设置" Height="100" HorizontalAlignment="Left" Name="navBarItem16" VerticalAlignment="Top" Click="navBarItem_Click" />
+                            </dxn:NavBarGroup>
+                            <dxn:NavBarGroup Header="报表分析" Height="400" HorizontalAlignment="Left" Name="navBarGroup2" VerticalAlignment="Top" >
+                                <dxn:NavBarItem Content="推广计划报表" Height="100" HorizontalAlignment="Left" Name="navBarItem21" VerticalAlignment="Top" Click="navBarItem_Click" />
+                                <dxn:NavBarItem Content="推广组报表" Height="100" HorizontalAlignment="Left" Name="navBarItem22" VerticalAlignment="Top" Click="navBarItem_Click" />
+                                <dxn:NavBarItem Content="关键词报表" Height="100" HorizontalAlignment="Left" Name="navBarItem23" VerticalAlignment="Top" />
+                            </dxn:NavBarGroup>
+                            <dxn:NavBarGroup Header="类目及关键词分析" Height="400" HorizontalAlignment="Left" Name="navBarGroup3" VerticalAlignment="Top" >
+                                <dxn:NavBarItem Content="类目大盘数据" Height="100" HorizontalAlignment="Left" Name="navBarItem31" VerticalAlignment="Top" />
+                                <dxn:NavBarItem Content="类目热搜词" Height="100" HorizontalAlignment="Left" Name="navBarItem32" VerticalAlignment="Top" />
+                                <dxn:NavBarItem Content="关键词流量解析" Height="100" HorizontalAlignment="Left" Name="navBarItem33" VerticalAlignment="Top" />
+                                <dxn:NavBarItem Content="淘宝Top20W分析" Height="100" HorizontalAlignment="Left" Name="nbitop20W" VerticalAlignment="Top" Click="nbitop20W_Click" />
+                                <dxn:NavBarItem Content="宝贝找词" Height="100" HorizontalAlignment="Left" Name="nbiSearchKeywordByItem" VerticalAlignment="Top" Click="nbiSearchKeywordByItem_Click"  />
+                                <dxn:NavBarItem Content="转化词拓展" Height="100" HorizontalAlignment="Left" Name="navBarItem36" VerticalAlignment="Top" />
+                                <dxn:NavBarItem Content="关键词组词" Height="100" HorizontalAlignment="Left" Name="navBarItem37" VerticalAlignment="Top" />
+                            </dxn:NavBarGroup>
+                            <dxn:NavBarGroup Header="情报通" Height="400" HorizontalAlignment="Left" Name="navBarGroup4" VerticalAlignment="Top" >
+                                <dxn:NavBarItem Content="宝贝竞争分析" Height="100" HorizontalAlignment="Left" Name="navBarItem42" VerticalAlignment="Top" />
+                                <dxn:NavBarItem Content="店铺分析" Height="100" HorizontalAlignment="Left" Name="navBarItem43" VerticalAlignment="Top" />
+                                <dxn:NavBarItem Content="热搜关键词排名分析" Height="100" HorizontalAlignment="Left" Name="navBarItem44" VerticalAlignment="Top" />
+                            </dxn:NavBarGroup>
+                            <dxn:NavBarGroup Header="系统设置" IsExpanded="False" Height="400" HorizontalAlignment="Left" Name="navBarGroup5" VerticalAlignment="Top" >
+                                <dxn:NavBarItem Content="二次授权" Height="100" HorizontalAlignment="Left" Name="navBarItem51" VerticalAlignment="Top" />
+                                <dxn:NavBarItem Content="保存布局" Height="100" HorizontalAlignment="Left" Name="navBarItem52" VerticalAlignment="Top" />
+                            </dxn:NavBarGroup>
+                        </dxn:NavBarControl>
+
+                    </dxdo:LayoutPanel>
+
+                    <dxdo:LayoutGroup Caption="LayoutRootContent" TabCaption="LayoutRootContent" AllowClose="False">
+                        <dxdo:DocumentGroup Name="documentGroup1">
+                            <dxdo:DocumentPanel Caption="主页" Name="dpDefaultPage">
+                                <dxlc:LayoutControl Name="layoutControl1" Orientation="Vertical">
+                                    <dxlc:LayoutGroup Header="LayoutGroup" Name="layoutGroup1" View="GroupBox" HorizontalAlignment="Stretch">
+                                        <Button Content="获取数据" Height="23" HorizontalAlignment="Stretch" Name="btnGetAllCampaign" VerticalAlignment="Top" Click="btnGetAllCampaign_Click" />
+                                        <Button Content="获取用户信息" Height="23" HorizontalAlignment="Stretch" Name="btnGetUserInfo" VerticalAlignment="Top" Click="btnGetUserInfo_Click"/>
+                                    </dxlc:LayoutGroup>
+                                    <dxg:GridControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="AliceBlue" AutoGenerateColumns="None"  EnableSmartColumnsGeneration="False"  Name="gridControl1" >
+                                        <dxg:GridControl.Columns>
+                                            <dxg:GridColumn FieldName="campaign_id" Header="计划编号" Name="gridColumn1" />
+                                            <dxg:GridColumn FieldName="title" Header="计划名称" Name="gridColumn2" />
+                                            <dxg:GridColumn FieldName="create_time" Header="创建时间" Name="gridColumn3" />
+                                        </dxg:GridControl.Columns>
+                                        <dxg:GridControl.View>
+                                            <dxg:TableView AllowPerPixelScrolling="True" AutoWidth="True" Name="tableView1" ShowTotalSummary="True" />
+                                        </dxg:GridControl.View>
+                                    </dxg:GridControl>
+                                </dxlc:LayoutControl>
+                            </dxdo:DocumentPanel>
+                        </dxdo:DocumentGroup>
+                    </dxdo:LayoutGroup>
+                </dxdo:LayoutGroup>
+            </dxdo:DockLayoutManager.LayoutRoot>
+        </dxdo:DockLayoutManager>
+        <dx:WaitIndicator x:Name="waitIndicator" Content="加载中..." DeferedVisibility="False"  />
+    </Grid>
+</UserControl>

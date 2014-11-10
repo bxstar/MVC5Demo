@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllCampaignOnline">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllCampaignOnlineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllCampaignOnlineResult" type="tns:ArrayOfCampaign" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCampaign">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Campaign" nillable="true" type="tns:Campaign" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Campaign">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TopObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="campaign_id" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="create_time" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="modified_time" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="nick" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="online_status" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="settle_reason" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="settle_status" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TopObject" abstract="true" />
+      <s:element name="GetAllCampaignRptOnline">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strDateStart" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDateEnd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllCampaignRptOnlineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllCampaignRptOnlineResult" type="tns:ArrayOfEntityCampaignReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEntityCampaignReport">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EntityCampaignReport" nillable="true" type="tns:EntityCampaignReport" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EntityCampaignReport">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="campaign_id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="campaign_name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="campaign_status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="impressions" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="click" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="cost" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ctr" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="cpc" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="directpay" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="indirectpay" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="totalpay" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="roi" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="totalpaycount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="directpaycount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="indirectpaycount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="totalfavcount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="favitemcount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="favshopcount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="rate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="avgpos" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="source" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nick" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetItemKeywords">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="itemIdOrUrl" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItemKeywordsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetItemKeywordsResult" type="tns:ArrayOfEntityWordData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEntityWordData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EntityWordData" nillable="true" type="tns:EntityWordData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EntityWordData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="word" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="click" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="competition" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="cost" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="rate" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="cpc" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ctr" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="directpay" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="directpaycount" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="favitemcount" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="favshopcount" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="totalfavcount" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="impressions" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="indirectpay" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="indirectpaycount" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="roi" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="totalpaycount" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="totalpay" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="similar" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProvidedCatInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProvidedCatInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProvidedCatInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCampaignOnlineSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllCampaignOnline" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCampaignOnlineSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllCampaignOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCampaignRptOnlineSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllCampaignRptOnline" />
+  </wsdl:message>
+  <wsdl:message name="GetAllCampaignRptOnlineSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllCampaignRptOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetItemKeywordsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetItemKeywords" />
+  </wsdl:message>
+  <wsdl:message name="GetItemKeywordsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetItemKeywordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProvidedCatInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProvidedCatInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetProvidedCatInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProvidedCatInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSTopSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCampaignOnline">
+      <wsdl:input message="tns:GetAllCampaignOnlineSoapIn" />
+      <wsdl:output message="tns:GetAllCampaignOnlineSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCampaignRptOnline">
+      <wsdl:input message="tns:GetAllCampaignRptOnlineSoapIn" />
+      <wsdl:output message="tns:GetAllCampaignRptOnlineSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetItemKeywords">
+      <wsdl:input message="tns:GetItemKeywordsSoapIn" />
+      <wsdl:output message="tns:GetItemKeywordsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProvidedCatInfo">
+      <wsdl:input message="tns:GetProvidedCatInfoSoapIn" />
+      <wsdl:output message="tns:GetProvidedCatInfoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSTopSoap" type="tns:WSTopSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCampaignOnline">
+      <soap:operation soapAction="http://tempuri.org/GetAllCampaignOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCampaignRptOnline">
+      <soap:operation soapAction="http://tempuri.org/GetAllCampaignRptOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemKeywords">
+      <soap:operation soapAction="http://tempuri.org/GetItemKeywords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProvidedCatInfo">
+      <soap:operation soapAction="http://tempuri.org/GetProvidedCatInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSTopSoap12" type="tns:WSTopSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCampaignOnline">
+      <soap12:operation soapAction="http://tempuri.org/GetAllCampaignOnline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCampaignRptOnline">
+      <soap12:operation soapAction="http://tempuri.org/GetAllCampaignRptOnline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemKeywords">
+      <soap12:operation soapAction="http://tempuri.org/GetItemKeywords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProvidedCatInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetProvidedCatInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSTop">
+    <wsdl:port name="WSTopSoap" binding="tns:WSTopSoap">
+      <soap:address location="http://localhost:21106/WSTop.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSTopSoap12" binding="tns:WSTopSoap12">
+      <soap12:address location="http://localhost:21106/WSTop.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

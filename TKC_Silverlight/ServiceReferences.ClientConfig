@@ -1,0 +1,16 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+          <basicHttpBinding>
+            <binding name="WSTopSoap" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647" openTimeout="00:30:00" closeTimeout="00:30:00" sendTimeout="00:30:00" receiveTimeout="00:30:00">
+              <security mode="None" />
+            </binding>
+          </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="../WSTop.asmx" binding="basicHttpBinding"
+                bindingConfiguration="WSTopSoap" contract="ServiceReference1.WSTopSoap"
+                name="WSTopSoap" />
+        </client>
+    </system.serviceModel>
+</configuration>

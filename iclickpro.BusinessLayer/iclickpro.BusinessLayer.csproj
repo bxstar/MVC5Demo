@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BD385894-FDD1-4F03-8EBF-823C3A2728F4}</ProjectGuid>
+    <ProjectGuid>{7145AD33-5B7F-4096-BDD7-FAFA857A99C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>iclickpro.Model</RootNamespace>
-    <AssemblyName>iclickpro.Model</AssemblyName>
+    <RootNamespace>iclickpro.BusinessLayer</RootNamespace>
+    <AssemblyName>iclickpro.BusinessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,34 +31,49 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\Dll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\Dll\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TopSdk">
+      <HintPath>..\Dll\TopSdk.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultDbContext.cs" />
-    <Compile Include="EntityCampaignReport.cs" />
-    <Compile Include="EntityEnum.cs" />
-    <Compile Include="EntityItem.cs" />
-    <Compile Include="EntityMail.cs" />
-    <Compile Include="EntityUser.cs" />
-    <Compile Include="EntityWordData.cs" />
+    <Compile Include="BusinessCampaignHandler.cs" />
+    <Compile Include="BusinessMQ.cs" />
+    <Compile Include="BusinessTaobaoApiHandler.cs" />
+    <Compile Include="BusinessUserHandler.cs" />
+    <Compile Include="CommonHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceFindWord.cs" />
+    <Compile Include="ServiceSplitWord.cs" />
+    <Compile Include="ServiceWord.cs" />
+    <Compile Include="TaoCiWord.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <ProjectReference Include="..\iclickpro.AccessCommon\iclickpro.AccessCommon.csproj">
+      <Project>{a20acd35-4d36-405a-830c-28954020acc5}</Project>
+      <Name>iclickpro.AccessCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\iclickpro.Model\iclickpro.Model.csproj">
+      <Project>{bd385894-fdd1-4f03-8ebf-823c3a2728f4}</Project>
+      <Name>iclickpro.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

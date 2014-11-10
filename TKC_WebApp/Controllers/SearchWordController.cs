@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iclickpro.BusinessLayer;
+using iclickpro.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +32,16 @@ namespace TKC_WebApp.Controllers
         public ActionResult ByWord()
         {
             return View();
+        }
+
+        
+        public JsonResult GetUserOnlineItems()
+        {
+            EntityUser session = Session["user"] as EntityUser;
+
+            List<EntityItem> lstItem = CommonHandler.GetUserOnlineItems(session);
+
+            return Json(lstItem, JsonRequestBehavior.AllowGet);
         }
 	}
 }

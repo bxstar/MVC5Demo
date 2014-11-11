@@ -75,7 +75,7 @@ namespace TKC_WebApp
             List<Campaign> lstCampaignInfoOnline = new List<Campaign>();
             try
             {
-                string cacheKey_CampaignInfo = string.Format("top_campaigninfo_nick_{0}", user.SubUserName);
+                string cacheKey_CampaignInfo = string.Format("top_campaigninfo_nick_{0}", user.fSubUserName);
 
                 string cacheValue_CampaignInfo = wsProxyFindWord.GetValue(cacheKey_CampaignInfo);
                 if (cacheValue_CampaignInfo == null)
@@ -91,7 +91,7 @@ namespace TKC_WebApp
             }
             catch (Exception se)
             {
-                logger.Error(string.Format("获取计划信息出错，参数：{0}", user.SubUserName), se);
+                logger.Error(string.Format("获取计划信息出错，参数：{0}", user.fSubUserName), se);
             }
 
             return lstCampaignInfoOnline.ToArray();
@@ -111,7 +111,7 @@ namespace TKC_WebApp
 
                 //获取用户所有的推广计划信息
                 List<Campaign> lstCampaignInfoOnline = null;
-                string cacheKey_CampaignInfo = string.Format("top_campaigninfo_nick_{0}", user.SubUserName);
+                string cacheKey_CampaignInfo = string.Format("top_campaigninfo_nick_{0}", user.fSubUserName);
 
                 string cacheValue_CampaignInfo = wsProxyFindWord.GetValue(cacheKey_CampaignInfo);
                 if (cacheValue_CampaignInfo == null)
@@ -125,7 +125,7 @@ namespace TKC_WebApp
                     lstCampaignInfoOnline = DynamicJsonParser.ToObject<List<Campaign>>(cacheValue_CampaignInfo);
                 }
 
-                string cacheKey_CampaignRpt = string.Format("top_campaignrpt_nick_{0}", user.SubUserName);
+                string cacheKey_CampaignRpt = string.Format("top_campaignrpt_nick_{0}", user.fSubUserName);
                 string cacheValue_CampaignRpt = wsProxyFindWord.GetValue(cacheKey_CampaignRpt);
                 if (cacheValue_CampaignRpt == null)
                 {
@@ -163,7 +163,7 @@ namespace TKC_WebApp
             }
             catch (Exception se)
             {
-                logger.Error(string.Format("获取计划报表出错，参数：{0},{1},{2}", user.SubUserName, strDateStart, strDateEnd), se);
+                logger.Error(string.Format("获取计划报表出错，参数：{0},{1},{2}", user.fSubUserName, strDateStart, strDateEnd), se);
             }
 
             return lstResultCampaignRpt.ToArray();
@@ -184,19 +184,19 @@ namespace TKC_WebApp
             }
             else
             {
-                logger.InfoFormat("用户：{0}，宝贝：{1}，标题：{2}", session.UserName, itemOnline.item_id, itemOnline.item_title);
+                logger.InfoFormat("用户：{0}，宝贝：{1}，标题：{2}", session.fUserName, itemOnline.item_id, itemOnline.item_title);
             }
 
             //缓存获取找词的数量
-            List<EntityWordData> resultFindKeyword = CommonHandler.GetUserItemFindKeywordCache(session.SubUserName, itemOnline.item_id);
+            List<EntityWordData> resultFindKeyword = CommonHandler.GetUserItemFindKeywordCache(session.fSubUserName, itemOnline.item_id);
             if (resultFindKeyword != null && resultFindKeyword.Count() > 100)
             {
-                logger.InfoFormat("用户：{0}，宝贝：{1}，缓存取词", session.UserName, itemOnline.item_id);
+                logger.InfoFormat("用户：{0}，宝贝：{1}，缓存取词", session.fUserName, itemOnline.item_id);
                 return resultFindKeyword.ToArray();
             }
 
             //重新找词
-            logger.InfoFormat("用户：{0}，宝贝：{1}，开始找词", session.UserName, itemOnline.item_id);
+            logger.InfoFormat("用户：{0}，宝贝：{1}，开始找词", session.fUserName, itemOnline.item_id);
             resultFindKeyword = new List<EntityWordData>();
 
             //发送蜘蛛抓词任务
@@ -205,11 +205,11 @@ namespace TKC_WebApp
 
             //更新宝贝的信息
 
-            logger.InfoFormat("用户：{0}，宝贝：{1}，获取类目热词开始", session.UserName, itemOnline.item_id);
+            logger.InfoFormat("用户：{0}，宝贝：{1}，获取类目热词开始", session.fUserName, itemOnline.item_id);
             List<string> lstCategoryWord = CommonHandler.GetCatTopKeyword(itemOnline.cid);
-            logger.InfoFormat("用户：{0}，宝贝：{1}，获取类目热词完成，数量：{2}", session.UserName, itemOnline.item_id, lstCategoryWord.Count);
+            logger.InfoFormat("用户：{0}，宝贝：{1}，获取类目热词完成，数量：{2}", session.fUserName, itemOnline.item_id, lstCategoryWord.Count);
 
-            logger.InfoFormat("用户：{0}，宝贝：{1}，获取关键词开始", session.UserName, itemOnline.item_id);
+            logger.InfoFormat("用户：{0}，宝贝：{1}，获取关键词开始", session.fUserName, itemOnline.item_id);
             DateTime dtStartFind = DateTime.Now;
             //标题分词在类目中出现的词，按重复字符数*长度排序，还要按照找词统计来排序
             List<string> lstMainWord = new List<string>();
@@ -298,7 +298,7 @@ namespace TKC_WebApp
                 }
             }
 
-            logger.InfoFormat("用户：{0}，宝贝：{1}，获取关键词完成，核心词：{2}，数量：{3}", session.UserName, itemOnline.item_id, mainWord, lstSpiderFindWord.Count);
+            logger.InfoFormat("用户：{0}，宝贝：{1}，获取关键词完成，核心词：{2}，数量：{3}", session.fUserName, itemOnline.item_id, mainWord, lstSpiderFindWord.Count);
 
             resultFindKeyword = CommonHandler.CombineWord(itemOnline, lstMainWord, lstSpiderFindWord.Union(lstTitleWord).Union(lstCategoryWord).ToList());
             int totalCount = resultFindKeyword.Count;
@@ -324,8 +324,8 @@ namespace TKC_WebApp
             }
 
             //设置缓存 
-            CommonHandler.SetUserItemFindKeywordCache(session.SubUserName, itemOnline.item_id, resultFindKeyword);
-            logger.InfoFormat("用户：{0}，宝贝：{1}，设置关键词缓存完成，数量：{2}", session.UserName, itemOnline.item_id, resultFindKeyword.Count);
+            CommonHandler.SetUserItemFindKeywordCache(session.fSubUserName, itemOnline.item_id, resultFindKeyword);
+            logger.InfoFormat("用户：{0}，宝贝：{1}，设置关键词缓存完成，数量：{2}", session.fUserName, itemOnline.item_id, resultFindKeyword.Count);
 
             return resultFindKeyword.ToArray();
         }

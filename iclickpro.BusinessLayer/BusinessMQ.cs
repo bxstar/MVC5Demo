@@ -47,13 +47,13 @@ namespace iclickpro.BusinessLayer
                         var body = Encoding.UTF8.GetBytes(message);
 
                         channel.BasicPublish(exchangeName, "", null, body);
-                        logger.Info(string.Format("用户：{0}，消息:{1}，发送成功", user.UserName, msg));
+                        logger.Info(string.Format("用户：{0}，消息:{1}，发送成功", user.fUserName, msg));
                     };
                 };
             }
             catch (Exception se)
             {
-                logger.Error(string.Format("发送用户:{0}，消息:{1}，失败", user.UserName, msg), se);
+                logger.Error(string.Format("发送用户:{0}，消息:{1}，失败", user.fUserName, msg), se);
             }
 
         }
@@ -75,13 +75,13 @@ namespace iclickpro.BusinessLayer
                         var body = Encoding.UTF8.GetBytes(message);
 
                         channel.BasicPublish("", queueName, null, body);
-                        logger.Info(string.Format("发送用户:{0}，消息:{1}，成功", user.UserName, msg));
+                        logger.Info(string.Format("发送用户:{0}，消息:{1}，成功", user.fUserName, msg));
                     };
                 };
             }
             catch (Exception se)
             {
-                logger.Error(string.Format("发送用户:{0}，消息:{1}，失败", user.UserName, msg), se);
+                logger.Error(string.Format("发送用户:{0}，消息:{1}，失败", user.fUserName, msg), se);
             }
 
         }

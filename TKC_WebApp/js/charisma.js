@@ -179,14 +179,14 @@ function docReady() {
 
     //gallery controls container animation
     $('ul.gallery li').hover(function () {
-        $('img', this).fadeToggle(1000);
+        //$('img', this).fadeToggle(1000);
         $(this).find('#div_gallery').remove();
         $(this).append('<div id="div_gallery" class="well" style="position:absolute;z-index:1;padding:0px;font-size:11px;width:175%;">' +
-            '欧洲站秋冬秋冬装新款前后提花青花瓷套头毛衣高高腰拉链短裙套装' +
+            $(this).find("a").attr("title") +
             '</div>');
         $(this).find('#div_gallery').stop().animate({ 'margin-top': '5' }, 400);
     }, function () {
-        $('img', this).fadeToggle(1000);
+        //$('img', this).fadeToggle(1000);
         $(this).find('#div_gallery').stop().animate({ 'margin-top': '-30' }, 200, function () {
             $(this).remove();
         });
@@ -209,12 +209,17 @@ function docReady() {
     });
 
     //gallery colorbox
-    $('.thumbnail a').colorbox({
-        rel: 'thumbnail a',
-        transition: "elastic",
-        maxWidth: "95%",
-        maxHeight: "95%",
-        slideshow: true
+    //$('.thumbnail a').colorbox({
+    //    rel: 'thumbnail a',
+    //    transition: "elastic",
+    //    maxWidth: "95%",
+    //    maxHeight: "95%",
+    //    slideshow: true
+    //});
+
+    //gallery colorbox
+    $('.thumbnail img').click(function () {
+        $("#txtItemIdOrUrl").val("http://item.taobao.com/item.htm?id=" + $(this).attr("id"));
     });
 
     //gallery fullscreen
@@ -435,3 +440,35 @@ $.extend($.fn.dataTableExt.oPagination, {
         }
     }
 });
+
+$.fn.smartFloat = function () {
+    var position = function (element) {
+        var top = element.position().top, pos = element.css("position"); width = element.css("width");
+        $(window).scroll(function () {
+            //$('#divFloat .box-tkc').css("background-color", $('body').css("background-color"));
+            var scrolls = $(this).scrollTop();
+            if (scrolls > top) {
+                if (window.XMLHttpRequest) {
+                    element.css({
+                        width: width,
+                        "z-index": 99,
+                        position: "fixed",
+                        top: 0
+                    });
+                } else {
+                    element.css({
+                        top: scrolls
+                    });
+                }
+            } else {
+                element.css({
+                    position: pos,
+                    top: top
+                });
+            }
+        });
+    };
+    return $(this).each(function () {
+        position($(this));
+    });
+};

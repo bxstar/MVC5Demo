@@ -1254,6 +1254,7 @@
     <Content Include="Views\Shared\_PartialTopBar.cshtml" />
     <Content Include="Views\Shared\_PartialLeftMenu.cshtml" />
     <Content Include="Views\SearchWord\ByWord.cshtml" />
+    <Content Include="Views\SearchWord\ByItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

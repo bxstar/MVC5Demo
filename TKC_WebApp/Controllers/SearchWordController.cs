@@ -15,15 +15,38 @@ namespace TKC_WebApp.Controllers
         /// </summary>
         public ActionResult Index()
         {
-            return View();
+            EntityUser session = Session["user"] as EntityUser;
+            List<EntityItem> lstItem = CommonHandler.GetUserOnlineItems(session);
+
+            ViewBag.UserName = session.fSubUserName;
+
+            return View(lstItem);
         }
 
         /// <summary>
-        /// 宝贝找词
+        /// 宝贝找词，跳转对应视图
         /// </summary>
         public ActionResult ByItem()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 宝贝找词，页面提交后跳转对应视图
+        /// </summary>
+        public ActionResult ToByItem()
+        {
+
+            string itemUrl = Request["txtItemIdOrUrl"];
+            EntityItem itemOnline = CommonHandler.GetItemOnline(itemUrl);
+
+            EntityUser session = Session["user"] as EntityUser;
+            List<EntityItem> lstItem = CommonHandler.GetUserOnlineItems(session);
+
+            ViewBag.UserName = session.fSubUserName;
+            ViewBag.ItemOnline = itemOnline;
+
+            return View("ByItem",lstItem);
         }
 
         /// <summary>

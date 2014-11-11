@@ -28,8 +28,8 @@ namespace iclickpro.BusinessLayer
         public ShopGetResponse TaobaoShopGet(EntityUser session, string fields)
         {
 
-            var req = new ShopGetRequest { Nick = session.SubUserName, Fields = fields };
-            var response = _client.Execute(req, session.TopSessions);
+            var req = new ShopGetRequest { Nick = session.fSubUserName, Fields = fields };
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -40,8 +40,8 @@ namespace iclickpro.BusinessLayer
         /// <returns></returns>
         public VasSubscribeGetResponse TaobaoSimbaSvaGet(EntityUser session)
         {
-            var req = new VasSubscribeGetRequest { Nick = session.SubUserName, ArticleCode = "ts-25420" };
-            var response = _client.Execute(req, session.TopSessions);
+            var req = new VasSubscribeGetRequest { Nick = session.fSubUserName, ArticleCode = "ts-25420" };
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -53,8 +53,8 @@ namespace iclickpro.BusinessLayer
         /// <returns></returns>
         private SimbaToolsItemsTopGetResponse TaobaoSimbaToolsItemsTopGet(EntityUser session, string strWords, string ip)
         {
-            var req = new SimbaToolsItemsTopGetRequest { Nick = session.SubUserName, Keyword = strWords, Ip = ip };
-            var response = _client.Execute(req, session.TopSessions);
+            var req = new SimbaToolsItemsTopGetRequest { Nick = session.fSubUserName, Keyword = strWords, Ip = ip };
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -100,13 +100,13 @@ namespace iclickpro.BusinessLayer
         {
             var req = new SimbaAdgroupOnlineitemsvonGetRequest
             {
-                Nick = session.SubUserName,
+                Nick = session.fSubUserName,
                 OrderField = orderField,
                 OrderBy = orderBy,
                 PageNo = pageNo,
                 PageSize = pageSize
             };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -119,8 +119,8 @@ namespace iclickpro.BusinessLayer
         /// <returns></returns>
         public SimbaCampaignsGetResponse TaobaoSimbaCampaignsGet(EntityUser session)
         {
-            var req = new SimbaCampaignsGetRequest { Nick = session.SubUserName };
-            var response = _client.Execute(req, session.TopSessions);
+            var req = new SimbaCampaignsGetRequest { Nick = session.fSubUserName };
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -152,12 +152,12 @@ namespace iclickpro.BusinessLayer
             var req = new SimbaAdgroupsbycampaignidGetRequest
             {
 
-                Nick = session.SubUserName,
+                Nick = session.fSubUserName,
                 CampaignId = campaignId,
                 PageSize = pageSize,
                 PageNo = pageNo
             };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -173,10 +173,10 @@ namespace iclickpro.BusinessLayer
         {
             var req = new SimbaKeywordsbykeywordidsGetRequest
             {
-                Nick = session.SubUserName,
+                Nick = session.fSubUserName,
                 KeywordIds = keywordIds
             };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -188,10 +188,10 @@ namespace iclickpro.BusinessLayer
             {
                 var req = new SimbaKeywordsbyadgroupidGetRequest
                 {
-                    Nick = session.SubUserName,
+                    Nick = session.fSubUserName,
                     AdgroupId = adgroupId
                 };
-                response = _client.Execute(req, session.TopSessions);
+                response = _client.Execute(req, session.fSession);
             }
             catch
             {
@@ -211,11 +211,11 @@ namespace iclickpro.BusinessLayer
         {
             var req = new SimbaAdgroupsItemExistRequest
             {
-                Nick = session.SubUserName,
+                Nick = session.fSubUserName,
                 CampaignId = campaignId,
                 ItemId = itemId
             };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -226,7 +226,7 @@ namespace iclickpro.BusinessLayer
         public SimbaCustomersAuthorizedGetResponse TaobaoSimbaCustomersAuthorizedGet(EntityUser session)
         {
             var req = new SimbaCustomersAuthorizedGetRequest();
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -256,8 +256,8 @@ namespace iclickpro.BusinessLayer
         public SimbaRptCampadgroupbaseGetResponse TaobaoSimbaRptCampadgroupbaseGet(EntityUser session, long campaignId, string starttime, string endtime, string source, int pageNum, string search_type)
         {
             string subtoken = GetSubwayToken(session);
-            var req = new SimbaRptCampadgroupbaseGetRequest { SubwayToken = subtoken, Nick = session.SubUserName, CampaignId = campaignId, StartTime = starttime, EndTime = endtime, Source = source, PageNo = pageNum, PageSize = 500, SearchType = search_type };
-            var response = _client.Execute(req, session.TopSessions);
+            var req = new SimbaRptCampadgroupbaseGetRequest { SubwayToken = subtoken, Nick = session.fSubUserName, CampaignId = campaignId, StartTime = starttime, EndTime = endtime, Source = source, PageNo = pageNum, PageSize = 500, SearchType = search_type };
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -275,8 +275,8 @@ namespace iclickpro.BusinessLayer
         public SimbaRptAdgroupbaseGetResponse TaobaoSimbaRptAdgroupbaseGet(EntityUser session, long campaignId, long adgroupId, string starttime, string endtime)
         {
             string subtoken = GetSubwayToken(session);
-            var req = new SimbaRptAdgroupbaseGetRequest { SubwayToken = subtoken, Nick = session.SubUserName, CampaignId = campaignId, AdgroupId = adgroupId, StartTime = starttime, EndTime = endtime, Source = "1,2", PageNo = 1, PageSize = 500, SearchType = "SUMMARY" };
-            var response = _client.Execute(req, session.TopSessions);
+            var req = new SimbaRptAdgroupbaseGetRequest { SubwayToken = subtoken, Nick = session.fSubUserName, CampaignId = campaignId, AdgroupId = adgroupId, StartTime = starttime, EndTime = endtime, Source = "1,2", PageNo = 1, PageSize = 500, SearchType = "SUMMARY" };
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -295,8 +295,8 @@ namespace iclickpro.BusinessLayer
         public SimbaRptAdgroupeffectGetResponse TaobaoSimbaRptAdgroupeffectGet(EntityUser session, long campaignId, long adgroupId, string starttime, string endtime)
         {
             string subtoken = GetSubwayToken(session);
-            var req = new SimbaRptAdgroupeffectGetRequest { SubwayToken = subtoken, Nick = session.SubUserName, CampaignId = campaignId, AdgroupId = adgroupId, StartTime = starttime, EndTime = endtime, Source = "1,2", PageNo = 1, PageSize = 500, SearchType = "SUMMARY" };
-            var response = _client.Execute(req, session.TopSessions);
+            var req = new SimbaRptAdgroupeffectGetRequest { SubwayToken = subtoken, Nick = session.fSubUserName, CampaignId = campaignId, AdgroupId = adgroupId, StartTime = starttime, EndTime = endtime, Source = "1,2", PageNo = 1, PageSize = 500, SearchType = "SUMMARY" };
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -311,8 +311,8 @@ namespace iclickpro.BusinessLayer
         /// <returns></returns>
         public SimbaKeywordsRecommendGetResponse TaobaoSimbaKeywordsRecommendGet(EntityUser session, long adGroupId, string orderBy, int pageNo, int pageSize)
         {
-            var req = new SimbaKeywordsRecommendGetRequest { AdgroupId = adGroupId, Nick = session.SubUserName, OrderBy = orderBy, PageNo = pageNo, PageSize = pageSize };
-            return _client.Execute(req, session.TopSessions);
+            var req = new SimbaKeywordsRecommendGetRequest { AdgroupId = adGroupId, Nick = session.fSubUserName, OrderBy = orderBy, PageNo = pageNo, PageSize = pageSize };
+            return _client.Execute(req, session.fSession);
         }
 
         /// <summary>
@@ -389,7 +389,7 @@ namespace iclickpro.BusinessLayer
                                                                              string source)
         {
             var req = new SimbaRptAdgroupkeywordbaseGetRequest { Nick = nick, SubwayToken = GetSubwayToken(session), CampaignId = campaignId, AdgroupId = adgroupId, StartTime = startTime, EndTime = endTime, PageNo = pageNo, PageSize = pageSize, SearchType = searchType, Source = source };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -422,7 +422,7 @@ namespace iclickpro.BusinessLayer
                                                                             string source)
         {
             var req = new SimbaRptAdgroupkeywordeffectGetRequest { Nick = nick, SubwayToken = GetSubwayToken(session), CampaignId = campaignId, AdgroupId = adgroupId, StartTime = startTime, EndTime = endTime, PageNo = pageNo, PageSize = pageSize, SearchType = searchType, Source = source };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -435,9 +435,9 @@ namespace iclickpro.BusinessLayer
         public SimbaKeywordsQscoreGetResponse TaobaoSimbaKeywordsQscoreGet(EntityUser session, long adgroupId)
         {
             SimbaKeywordsQscoreGetRequest req = new SimbaKeywordsQscoreGetRequest();
-            req.Nick = session.SubUserName;
+            req.Nick = session.fSubUserName;
             req.AdgroupId = adgroupId;
-            SimbaKeywordsQscoreGetResponse response = _client.Execute(req, session.TopSessions);
+            SimbaKeywordsQscoreGetResponse response = _client.Execute(req, session.fSession);
             return response;
         }
         /// <summary>
@@ -448,8 +448,8 @@ namespace iclickpro.BusinessLayer
         private string GetSubwayToken(EntityUser session)
         {
             SimbaLoginAuthsignGetRequest request = new SimbaLoginAuthsignGetRequest();
-            request.Nick = session.SubUserName;
-            SimbaLoginAuthsignGetResponse response = _client.Execute(request, session.TopSessions);
+            request.Nick = session.fSubUserName;
+            SimbaLoginAuthsignGetResponse response = _client.Execute(request, session.fSession);
             string subwayToken = "";
             if (response.IsError)
             {
@@ -484,7 +484,7 @@ namespace iclickpro.BusinessLayer
             req.PageNo = pageIndex;
             req.PageSize = pageSize;
             req.UseHasNext = true;
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -494,10 +494,10 @@ namespace iclickpro.BusinessLayer
         public SimbaKeywordKeywordforecastGetResponse TaobaoSimbaKeywordKeywordforecastGet(EntityUser session, long keywordId, long bidwordPrice)
         {
             var req = new SimbaKeywordKeywordforecastGetRequest();
-            req.Nick = session.SubUserName;
+            req.Nick = session.fSubUserName;
             req.KeywordId = keywordId;
             req.BidwordPrice = bidwordPrice;
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -508,10 +508,10 @@ namespace iclickpro.BusinessLayer
         {
             var req = new SimbaKeywordsPricevonSetRequest
             {
-                Nick = session.SubUserName,
+                Nick = session.fSubUserName,
                 KeywordidPrices = keywordidPrices
             };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -522,7 +522,7 @@ namespace iclickpro.BusinessLayer
         {
             var req = new SimbaRptCampaignbaseGetRequest
             {
-                Nick = session.SubUserName,
+                Nick = session.fSubUserName,
                 SubwayToken = GetSubwayToken(session),
                 CampaignId = campaignId,
                 SearchType = "SUMMARY",
@@ -530,7 +530,7 @@ namespace iclickpro.BusinessLayer
                 StartTime = startTime,
                 EndTime = endTime
             };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
 
@@ -541,7 +541,7 @@ namespace iclickpro.BusinessLayer
         {
             var req = new SimbaRptCampaigneffectGetRequest
             {
-                Nick = session.SubUserName,
+                Nick = session.fSubUserName,
                 SubwayToken = GetSubwayToken(session),
                 CampaignId = campaignId,
                 SearchType = "SUMMARY",
@@ -549,7 +549,7 @@ namespace iclickpro.BusinessLayer
                 StartTime = startTime,
                 EndTime = endTime
             };
-            var response = _client.Execute(req, session.TopSessions);
+            var response = _client.Execute(req, session.fSession);
             return response;
         }
     }

@@ -1,0 +1,124 @@
+﻿@model IEnumerable<iclickpro.Model.EntityItem>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    ViewBag.Title="淘快词 宝贝找词";
+}
+
+<div class="ch-container">
+    <div class="row">
+
+        @RenderPage("~/Views/Shared/_PartialLeftMenu.cshtml")
+
+        <div id="content" class="col-lg-10 col-sm-10">
+
+            <!--宝贝找词开始-->
+            <div id="divFloat" class="row">
+                <div class="box-tkc body-color col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-eye-open"></i> 宝贝找词</h2>
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default">
+                                    <i class="glyphicon glyphicon-cog"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="box-content row" style="margin:0px;padding:10px;">
+                            <form class="form-inline" role="form" action="~/SearchWord/ByWord">
+                                <div class="form-group has-success">
+                                    <label class="control-label" for="txtItemIdOrUrl">宝贝链接：</label>
+                                    <div class="input-group" style="min-width:600px;">
+                                        <input class="form-control" name="txtItemIdOrUrl" id="txtItemIdOrUrl" placeholder="http://item.taobao.com/item.htm?id=@ViewBag.ItemOnline.item_id" type="text">
+                                    </div>
+                                    <button class="btn btn-primary" type="submit">开始找词</button>
+                                    <button class="btn btn-default">打开宝贝</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--宝贝找词结束-->
+            <!--我的宝贝开始-->
+            <div class="row">
+                <div class="box-tkc col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-picture"></i> 我的宝贝</h2>
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default">
+                                    <i class="glyphicon glyphicon-cog"></i>
+                                </a>
+                                <a href="#" class="btn btn-minimize btn-round btn-default">
+                                    <i class="glyphicon glyphicon-chevron-up"></i>
+                                </a>
+                                <a href="#" class="btn btn-close btn-round btn-default">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <ul class="thumbnails gallery" style="margin:0px;padding:0px;">
+                                @foreach (var item in Model)
+                                {
+                                    <li class="thumbnail" style="margin:0px">
+                                        <a style="background:url(@Html.DisplayFor(modelItem => item.pic_url)_80x80.jpg)" href="#"
+                                           title="@Html.DisplayFor(modelItem => item.item_title)">
+                                            <img id="@Html.DisplayFor(modelItem => item.item_id)" src="@Html.DisplayFor(modelItem => item.pic_url)_80x80.jpg" style="width:100px !important; height:100px !important;" />
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--我的宝贝结束-->
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3>Settings</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>Here settings can be configured...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                        <a href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*<div>
+        <footer class="row">
+            <p class="col-md-9 col-sm-9 col-xs-12 copyright">
+                &copy; <a href="http://www.taokuaiche.com" target="_blank">
+                    淘快词
+                </a> 2012 - 2015
+            </p>
+            <p class="col-md-3 col-sm-3 col-xs-12 powered-by">
+                Powered by: <a href="http://www.taokuaiche.com">世奇广告</a>
+            </p>
+        </footer>
+
+    </div>*@
+
+<script type="text/javascript">
+    //置顶漂浮
+    $(document).ready(function () {
+        $("#divFloat").smartFloat();
+    });
+
+</script>
+
+

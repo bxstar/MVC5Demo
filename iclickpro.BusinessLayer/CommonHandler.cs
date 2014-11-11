@@ -511,7 +511,7 @@ namespace iclickpro.BusinessLayer
             List<EntityItem> lstItem = null;
             try
             {
-                string strResult = wsFindWordProxy.GetUserOnlineItems(null, session.SubUserName, session.TopSessions, "tkc", isFromCache);
+                string strResult = wsFindWordProxy.GetUserOnlineItems(null, session.fSubUserName, session.fSession, "tkc", isFromCache);
                 if (strResult != null)
                 {
                     lstItem = DynamicJsonParser.ToObject<List<EntityItem>>(CommonFunction.Decompress(strResult));
@@ -693,7 +693,7 @@ namespace iclickpro.BusinessLayer
             }
             catch (Exception se1)
             {
-                logger.Error(string.Format("taobao api 1次出错:{0}", user.TopSessions), se1);
+                logger.Error(string.Format("taobao api 1次出错:{0}", user.fSession), se1);
                 System.Threading.Thread.Sleep(100);
                 try
                 {
@@ -701,7 +701,7 @@ namespace iclickpro.BusinessLayer
                 }
                 catch (Exception se2)
                 {
-                    logger.Error(string.Format("taobao api 2次出错:{0}", user.TopSessions), se2);
+                    logger.Error(string.Format("taobao api 2次出错:{0}", user.fSession), se2);
                     System.Threading.Thread.Sleep(200);
                     try
                     {
@@ -709,7 +709,7 @@ namespace iclickpro.BusinessLayer
                     }
                     catch (Exception se3)
                     {
-                        logger.Error(string.Format("taobao api 3次出错:{0}", user.TopSessions), se3);
+                        logger.Error(string.Format("taobao api 3次出错:{0}", user.fSession), se3);
                         return null;
                     }
                 }
@@ -772,7 +772,7 @@ namespace iclickpro.BusinessLayer
             }
             catch (Exception se1)
             {
-                logger.Error(string.Format("taobao api 1次出错:{0},{1},{2},{3}", user.TopSessions, longPara1, strPara2, strPara3), se1);
+                logger.Error(string.Format("taobao api 1次出错:{0},{1},{2},{3}", user.fSession, longPara1, strPara2, strPara3), se1);
                 System.Threading.Thread.Sleep(100);
                 try
                 {
@@ -780,7 +780,7 @@ namespace iclickpro.BusinessLayer
                 }
                 catch (Exception se2)
                 {
-                    logger.Error(string.Format("taobao api 2次出错:{0},{1},{2},{3}", user.TopSessions, longPara1, strPara2, strPara3), se2);
+                    logger.Error(string.Format("taobao api 2次出错:{0},{1},{2},{3}", user.fSession, longPara1, strPara2, strPara3), se2);
                     System.Threading.Thread.Sleep(200);
                     try
                     {
@@ -788,7 +788,7 @@ namespace iclickpro.BusinessLayer
                     }
                     catch (Exception se3)
                     {
-                        logger.Error(string.Format("taobao api 3次出错:{0},{1},{2},{3}", user.TopSessions, longPara1, strPara2, strPara3), se3);
+                        logger.Error(string.Format("taobao api 3次出错:{0},{1},{2},{3}", user.fSession, longPara1, strPara2, strPara3), se3);
                         return null;
                     }
                 }
@@ -851,7 +851,7 @@ namespace iclickpro.BusinessLayer
             }
             catch (Exception se1)
             {
-                logger.Error(string.Format("taobao api 1次出错:{0},{1},{2},{3},{4}", user.TopSessions, strPara1, boolPara2, intPara3, intPara4), se1);
+                logger.Error(string.Format("taobao api 1次出错:{0},{1},{2},{3},{4}", user.fSession, strPara1, boolPara2, intPara3, intPara4), se1);
                 System.Threading.Thread.Sleep(100);
                 try
                 {
@@ -859,7 +859,7 @@ namespace iclickpro.BusinessLayer
                 }
                 catch (Exception se2)
                 {
-                    logger.Error(string.Format("taobao api 2次出错:{0},{1},{2},{3},{4}", user.TopSessions, strPara1, boolPara2, intPara3, intPara4), se2);
+                    logger.Error(string.Format("taobao api 2次出错:{0},{1},{2},{3},{4}", user.fSession, strPara1, boolPara2, intPara3, intPara4), se2);
                     System.Threading.Thread.Sleep(200);
                     try
                     {
@@ -867,7 +867,7 @@ namespace iclickpro.BusinessLayer
                     }
                     catch (Exception se3)
                     {
-                        logger.Error(string.Format("taobao api 3次出错:{0},{1},{2},{3},{4}", user.TopSessions, strPara1, boolPara2, intPara3, intPara4), se3);
+                        logger.Error(string.Format("taobao api 3次出错:{0},{1},{2},{3},{4}", user.fSession, strPara1, boolPara2, intPara3, intPara4), se3);
                         return null;
                     }
                 }

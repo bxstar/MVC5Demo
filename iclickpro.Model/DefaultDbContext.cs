@@ -58,14 +58,14 @@ namespace iclickpro.Model
             modelBuilder.Types<EntityUser>()
             .Configure(c =>
             {
-                c.HasKey(cust => cust.UserID);
-                c.Property(cust => cust.UserID).HasColumnName("fID");
-                c.Property(t => t.OnlineUserID).HasColumnName("fUserID");
-                c.Property(t => t.UserName).HasColumnName("fUserName");
-                c.Property(t => t.SubUserName).HasColumnName("fSubUserName");
-                c.Property(t => t.TopSessions).HasColumnName("fSession");
-                c.Property(t => t.LoginUrl).HasColumnName("fLoginUrl");
-                c.Property(t => t.IsProxy).HasColumnName("fIsPoxy");
+                c.HasKey(cust => cust.fID);
+                c.Property(cust => cust.fID).HasColumnName("fID");
+                c.Property(t => t.fUserID).HasColumnName("fUserID");
+                c.Property(t => t.fUserName).HasColumnName("fUserName");
+                c.Property(t => t.fSubUserName).HasColumnName("fSubUserName");
+                c.Property(t => t.fSession).HasColumnName("fSession");
+                c.Property(t => t.fLoginUrl).HasColumnName("fLoginUrl");
+                c.Property(t => t.fIsPoxy).HasColumnName("fIsPoxy");
                 c.Property(t => t.CreateDate).HasColumnName("CreateDate");
                 c.Ignore(t => t.FeeCode);
                 c.Ignore(t => t.DeadLine);

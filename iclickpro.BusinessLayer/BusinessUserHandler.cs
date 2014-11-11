@@ -32,7 +32,7 @@ namespace iclickpro.BusinessLayer
         public String GetUserVas(EntityUser session, ref string message)
         {
             string userSubscribe = string.Empty;
-            string cacheKey_subscribe = "tkci_user_subscribe_" + session.SubUserName;
+            string cacheKey_subscribe = "tkci_user_subscribe_" + session.fSubUserName;
             int cacheTimeOut = 30 * 60; //缓存30分钟
             WService.WebServiceForKeywordForecast wsProxy = new WService.WebServiceForKeywordForecast();
             try
@@ -140,17 +140,17 @@ namespace iclickpro.BusinessLayer
             EntityUser session = null;
             string subUserName = param["subUserName"].ToString();
 
-            EntityUser existUser = DefaultDbContext.Current().User.FirstOrDefault(o => o.UserName == o.SubUserName && o.SubUserName == subUserName);
+            EntityUser existUser = DefaultDbContext.Current().User.FirstOrDefault(o => o.fUserName == o.fSubUserName && o.fSubUserName == subUserName);
 
 
             if (existUser != null)
             {
-                if (IsProxyLogin && !string.IsNullOrEmpty(existUser.LoginUrl))
+                if (IsProxyLogin && !string.IsNullOrEmpty(existUser.fLoginUrl))
                 {//代理用户登录使用被代理用户的登录信息，不更新LoginUrl
-                    param["loginUrl"] = existUser.LoginUrl; //使用被代理账户的登录参数，如果被代理账户从未登录过则还是使用代理账户的登录参数
+                    param["loginUrl"] = existUser.fLoginUrl; //使用被代理账户的登录参数，如果被代理账户从未登录过则还是使用代理账户的登录参数
                 }
                 //使用被代理账户的用户编号，保证编号唯一
-                param["userId"] = existUser.OnlineUserID;
+                param["userId"] = existUser.fUserID;
             }
             else
             {

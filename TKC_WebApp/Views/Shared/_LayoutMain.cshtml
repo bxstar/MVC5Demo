@@ -37,7 +37,7 @@
 </head>
 <body>
     <div>
-        @RenderPage("_PartialTopBar.cshtml")
+        @RenderPage("_PartialTopBar.cshtml", new { UserName = ViewBag.UserName })
 
         @RenderBody()
     </div>

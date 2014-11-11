@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace TKC_WebApp.Controllers
 {
-    public class SearchWordController : Controller
+    public class SearchWordController : TkcBaseController
     {
         /// <summary>
         /// 主页视图

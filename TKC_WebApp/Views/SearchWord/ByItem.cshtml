@@ -13,7 +13,7 @@
         <div id="content" class="col-lg-10 col-sm-10">
 
             <!--宝贝找词开始-->
-            <div id="divFloat" class="row">
+            <div id="divItemSelect" class="row">
                 <div class="box-tkc body-color col-md-12">
                     <div class="box-inner">
                         <div class="box-header well" data-original-title="">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="box-content row" style="margin:0px;padding:10px;">
                             <form class="form-inline" role="form" action="~/SearchWord/ByWord">
-                                <div class="form-group has-success">
+                                <div class="form-group ">
                                     <label class="control-label" for="txtItemIdOrUrl">宝贝链接：</label>
                                     <div class="input-group" style="min-width:600px;">
                                         <input class="form-control" name="txtItemIdOrUrl" id="txtItemIdOrUrl" placeholder="http://item.taobao.com/item.htm?id=@ViewBag.ItemOnline.item_id" type="text">
@@ -116,7 +116,7 @@
 <script type="text/javascript">
     //置顶漂浮
     $(document).ready(function () {
-        $("#divFloat").smartFloat();
+        $("#divItemSelect").smartFloat();
     });
 
 </script>

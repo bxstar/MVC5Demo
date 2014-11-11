@@ -13,8 +13,8 @@
         <div id="content" class="col-lg-10 col-sm-10">
 
             <!--店铺数据开始-->
-            <div class="row">
-                <div class="box col-md-12" style="margin-top:0px;">
+            <div id="divShopData" class="row">
+                <div class="box col-md-12 body-color" style="margin-top:0px;">
                     <div class="box-inner">
                         <div class="box-header well">
                             <h2><i class="glyphicon glyphicon-info-sign"></i> 店铺数据</h2>
@@ -26,13 +26,14 @@
                         </div>
                         <div class="box-content row" style="margin:0px;padding:0px;">
                             <ul class="nav nav-tabs" id="myTab" style="margin:0px;">
-                                <li class="active"><a href="#info">昨日</a></li>
-                                <li><a href="#custom">7天</a></li>
-                                <li><a href="#messages">30天</a></li>
+                                <li class="active"><a href="#oneday">昨日</a></li>
+                                <li><a href="#sevenday">7天</a></li>
+                                <li><a href="#thirtyday">30天</a></li>
+                                <li><a href="#graphyday">图表</a></li>
                             </ul>
 
                             <div id="myTabContent" class="tab-content" style="padding:10px;">
-                                <div class="tab-pane active" id="info">
+                                <div id="oneday" class="tab-pane active">
                                     <div class="col-md-6 col-xs-6" style="padding:2px;">
                                         <div class="col-md-3 col-xs-12" style="padding:2px;">
                                             <div class="well" style="height:80px;">
@@ -86,7 +87,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="custom">
+                                <div id="sevenday" class="tab-pane">
                                     <div class="col-md-6 col-xs-6" style="padding:2px;">
                                         <div class="col-md-3 col-xs-12" style="padding:2px;">
                                             <div class="well" style="height:80px;">
@@ -140,8 +141,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="messages">
+                                <div id="thirtyday" class="tab-pane">
 
+                                </div>
+                                <div id="graphyday" class="tab-pane">
+                                    <div class="box-inner">
+                                        <div class="box-content">
+                                            <div id="sincos" class="center" style="height:300px"></div>
+                                            <p id="hoverdata">
+                                                Mouse position at (<span id="x">0</span>, <span id="y">0</span>). <span id="clickdata"></span>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -151,7 +162,7 @@
             </div>
             <!--店铺数据结束-->
             <!--宝贝找词开始-->
-            <div id="divFloat" class="row">
+            <div id="divItemSelect" class="row">
                 <div class="box-tkc body-color col-md-12">
                     <div class="box-inner">
                         <div class="box-header well" data-original-title="">
@@ -254,7 +265,7 @@
 <script type="text/javascript">
     //置顶漂浮
     $(document).ready(function () {
-        $("#divFloat").smartFloat();
+        $("#divItemSelect").smartFloat();
     });
     
 </script>

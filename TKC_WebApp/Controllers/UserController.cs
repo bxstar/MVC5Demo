@@ -10,22 +10,8 @@ using System.Web.Mvc;
 
 namespace TKC_WebApp.Controllers
 {
-    public class UserController : Controller
+    public class UserController : TkcBaseController
     {
-        /// <summary>
-        /// 写log信息
-        /// </summary>
-        private static ILog logger = log4net.LogManager.GetLogger("Logger");
-
-        /// <summary>
-        /// 用户操作对象
-        /// </summary>
-        private BusinessUserHandler bllUserHandler = new BusinessUserHandler();
-
-        #region 全局配置
-        public readonly string Const_AppKey = CommonFunction.GetAppSetting("AppKey");
-        #endregion
-
         /// <summary>
         /// 用户主页
         /// </summary>
@@ -82,13 +68,8 @@ namespace TKC_WebApp.Controllers
                     return Redirect(vipUrl);
                 }
 
-                if (session.FeeCode == "ts-25420-1" || bllUserHandler.IsUserTestBasicVersion(session.fUserName))
+                if (session.FeeCode == "ts-25420-1" || session.FeeCode == "ts-25420-3" || session.FeeCode == "ts-25420-v4")
                 {//初级版
-                    var ip = "127.0.0.1";
-                    if (Request.ServerVariables.Get("Remote_Addr").ToString() != String.Empty)
-                    {
-                        ip = Request.ServerVariables.Get("Remote_Addr").ToString();
-                    }
                     // 数据库中取出用户信息
                     var param = new Dictionary<string, object>();
                     param.Add("userName", session.fUserName);
@@ -96,7 +77,7 @@ namespace TKC_WebApp.Controllers
                     param.Add("userId", "");
                     param.Add("isPoxy", "1");
                     param.Add("session", session.fSession);
-                    param.Add("Ip", ip);
+                    param.Add("Ip", GetRequestIP());
                     param.Add("Versions", "1.0");
                     //主账户使用淘宝返回的地址参数更新数据库，代理账户需要从数据库中取得loginUrl，所以要使该值的最终值有效，被代理用户必须先于代理用户登录，该值在数据库中才存在，该值的做法类似userId
                     param.Add("loginUrl", session.fLoginUrl);
@@ -106,35 +87,19 @@ namespace TKC_WebApp.Controllers
                     
                     // 存储Session
                     Session["user"] = session;
-                    //跳转主页
-                    return RedirectToAction("Index", "SearchWord");
 
-                }
-                else if (session.FeeCode == "ts-25420-3")
-                {//智能版
-
-                }
-                else if (session.FeeCode == "ts-25420-v4")
-                {//托管版
-                    var ip = "127.0.0.1";
-                    if (Request.ServerVariables.Get("Remote_Addr").ToString() != String.Empty)
-                    {
-                        ip = Request.ServerVariables.Get("Remote_Addr").ToString();
+                    if (session.FeeCode == "ts-25420-1" || bllUserHandler.IsUserTestBasicVersion(session.fUserName))
+                    {//跳转初级版主页
+                        return RedirectToAction("Index", "SearchWord");
                     }
-                    var param = new Dictionary<string, object>();
-                    param.Add("userName", session.fUserName);
-                    param.Add("subUserName", session.fSubUserName);
-                    param.Add("userId", "");
-                    param.Add("isPoxy", "0");
-                    param.Add("session", session.fSession);
-                    param.Add("Ip", ip);
-                    param.Add("Versions", "1.0");
-                    param.Add("loginUrl", session.fLoginUrl);
-                    param.Add("FeeCode", session.FeeCode);
-                    // 获取用户信息
-                    session = bllUserHandler.UpdateUserInfo(param, false);
-                    Session["user"] = session;
-                    return Redirect("http://ao.taokuaiche.com/User/UserLogin?" + session.fLoginUrl + "&itemCode=" + session.FeeCode + "&deadLine=" + session.DeadLine);
+                    else if (session.FeeCode == "ts-25420-3")
+                    {//跳转智能版主页
+                        return Redirect("~/sl.html");
+                    }
+                    else if (session.FeeCode == "ts-25420-v4")
+                    {//跳转托管版主页
+                        return Redirect("http://ao.taokuaiche.com/User/UserLogin?" + session.fLoginUrl + "&itemCode=" + session.FeeCode + "&deadLine=" + session.DeadLine);
+                    }
                 }
                 else if (session.FeeCode == "ts-25420-2")
                 {//专家开车版本
@@ -143,9 +108,6 @@ namespace TKC_WebApp.Controllers
             }
 
             return Redirect("http://tkc.taokuaiche.com");
-
-            //return Redirect("~/WSTop.asmx");
-            
         }
 	}
 }

@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+
 namespace TKC_WebApp.Controllers
 {
     public class SearchWordController : TkcBaseController
@@ -47,6 +50,20 @@ namespace TKC_WebApp.Controllers
             ViewBag.ItemOnline = itemOnline;
 
             return View("ByItem",lstItem);
+        }
+
+        /// <summary>
+        /// 接口，返回宝贝找词的Json数据
+        /// </summary>
+        public JsonResult SearchWordByItem([DataSourceRequest]DataSourceRequest request,string itemUrl)
+        {
+            EntityItem itemOnline = CommonHandler.GetItemOnline(itemUrl);
+            EntityUser session = Session["user"] as EntityUser;
+            List<EntityWordData> lst = bllKeyword.GetItemKeywords(session, itemUrl);
+
+            var result = lst.ToDataSourceResult(request);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

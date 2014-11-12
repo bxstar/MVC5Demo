@@ -25,13 +25,13 @@
                             </div>
                         </div>
                         <div class="box-content row" style="margin:0px;padding:10px;">
-                            <form class="form-inline" role="form" action="~/SearchWord/ByWord">
+                            <form class="form-inline" role="form" >
                                 <div class="form-group ">
                                     <label class="control-label" for="txtItemIdOrUrl">宝贝链接：</label>
                                     <div class="input-group" style="min-width:600px;">
-                                        <input class="form-control" name="txtItemIdOrUrl" id="txtItemIdOrUrl" placeholder="http://item.taobao.com/item.htm?id=@ViewBag.ItemOnline.item_id" type="text">
+                                        <input class="form-control" id="txtItemIdOrUrl" placeholder="http://item.taobao.com/item.htm?id=xxxxxxxxx" value="http://item.taobao.com/item.htm?id=@ViewBag.ItemOnline.item_id" type="text">
                                     </div>
-                                    <button class="btn btn-primary" type="submit">开始找词</button>
+                                    <button class="btn btn-primary" onclick="searchWord(); return false;" >开始找词</button>
                                     <button class="btn btn-default">打开宝贝</button>
                                 </div>
                             </form>
@@ -44,32 +44,37 @@
             <div class="row">
                 <div class="box-tkc col-md-12">
                     <div class="box-inner">
-                        <div class="box-header well" data-original-title="">
-                            <h2><i class="glyphicon glyphicon-picture"></i> 我的宝贝</h2>
-                            <div class="box-icon">
-                                <a href="#" class="btn btn-setting btn-round btn-default">
-                                    <i class="glyphicon glyphicon-cog"></i>
-                                </a>
-                                <a href="#" class="btn btn-minimize btn-round btn-default">
-                                    <i class="glyphicon glyphicon-chevron-up"></i>
-                                </a>
-                                <a href="#" class="btn btn-close btn-round btn-default">
-                                    <i class="glyphicon glyphicon-remove"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="box-content">
-                            <ul class="thumbnails gallery" style="margin:0px;padding:0px;">
-                                @foreach (var item in Model)
-                                {
-                                    <li class="thumbnail" style="margin:0px">
-                                        <a style="background:url(@Html.DisplayFor(modelItem => item.pic_url)_80x80.jpg)" href="#"
-                                           title="@Html.DisplayFor(modelItem => item.item_title)">
-                                            <img id="@Html.DisplayFor(modelItem => item.item_id)" src="@Html.DisplayFor(modelItem => item.pic_url)_80x80.jpg" style="width:100px !important; height:100px !important;" />
-                                        </a>
-                                    </li>
-                                }
+                        @*<div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-picture"></i> 宝贝和关键词</h2>
+                        </div>*@
+                        <div class="box-content" style="margin:0px;padding:0px;">
+                            <ul class="nav nav-tabs" id="myTab" style="margin:0px;">
+                                <li id="tabItemList" class="active"><a href="#itemList">我的宝贝</a></li>
+                                <li id="tabWordList" ><a href="#wordList">关键词</a></li>
                             </ul>
+
+                            <div id="myTabContent" class="tab-content" style="padding:10px;">
+                                <div id="itemList" class="tab-pane active">
+                                    <ul class="thumbnails gallery" style="margin:0px;padding:0px;">
+                                        @foreach (var item in Model)
+                                        {
+                                            <li class="thumbnail" style="margin:0px">
+                                                <a style="background:url(@Html.DisplayFor(modelItem => item.pic_url)_80x80.jpg)" href="#"
+                                                   title="@Html.DisplayFor(modelItem => item.item_title)">
+                                                    <img id="@Html.DisplayFor(modelItem => item.item_id)" src="@Html.DisplayFor(modelItem => item.pic_url)_80x80.jpg" style="width:100px !important; height:100px !important;" />
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div id="wordList" class="tab-pane">
+                                    <div id="itemTitle"></div>
+                                    <div class="table-responsive"></div>
+                                </div>
+
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -118,6 +123,40 @@
     $(document).ready(function () {
         $("#divItemSelect").smartFloat();
     });
+
+    function searchWord() {
+        var itemUrl = $('#txtItemIdOrUrl').val();
+        var appRoot = appPath == "/" ? '' : appPath;
+
+        $.ajax({
+            type: "Post",
+            url: appRoot + "/SearchWord/SearchWordByItem",
+            data: { itemUrl: itemUrl },
+            beforeSend: loading,//执行ajax前执行loading函数.直到success
+            success: response //成功时执行Response函数
+        });
+
+        //$('#myModal').modal('show');
+        
+    }
+
+    function loading() {
+        var imgUrl = "/img/ajax-loaders/ajax-loader-6.gif";
+        var fullImgUrl = '<img src="{0}"/>'.format(appPath == "/" ? imgUrl : appPath + imgUrl);
+        //console.log(fullImgUrl);
+        $('#itemTitle').html(fullImgUrl);
+
+        $("#tabItemList").removeClass("active");
+        $("#itemList").removeClass("active");
+
+        $("#tabWordList").addClass("active");
+        $("#wordList").addClass("active");
+    }
+
+    function response(item) {
+        console.log(item);
+        $('#itemTitle').text(item.item_title);
+    }
 
 </script>
 

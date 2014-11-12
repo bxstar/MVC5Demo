@@ -39,9 +39,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\lib\KENDOUIMVC\2014.1.318.545\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\Dll\log4net.dll</HintPath>
@@ -970,6 +969,8 @@
     <Content Include="css\jquery-ui-1.8.21.custom.css" />
     <Content Include="css\jquery.iphone.toggle.css" />
     <Content Include="css\jquery.noty.css" />
+    <Content Include="css\kendo.common.min.css" />
+    <Content Include="css\kendo.default.min.css" />
     <Content Include="css\noty_theme_default.css" />
     <Content Include="css\tkc-app.css" />
     <Content Include="css\uploadify.css" />
@@ -990,19 +991,31 @@
     <Content Include="img\ajax-loaders\ajax-loader-7.gif" />
     <Content Include="img\ajax-loaders\ajax-loader-8.gif" />
     <Content Include="img\favicon.ico" />
+    <Content Include="img\highlight.png" />
+    <Content Include="img\hue.png" />
+    <Content Include="img\imagebrowser.png" />
+    <Content Include="img\indeterminate.gif" />
     <Content Include="img\iphone-style-checkboxes\off.png" />
     <Content Include="img\iphone-style-checkboxes\on.png" />
     <Content Include="img\iphone-style-checkboxes\slider.png" />
     <Content Include="img\iphone-style-checkboxes\slider_center.png" />
     <Content Include="img\iphone-style-checkboxes\slider_left.png" />
     <Content Include="img\iphone-style-checkboxes\slider_right.png" />
+    <Content Include="img\loading-image.gif" />
+    <Content Include="img\loading.gif" />
     <Content Include="img\logo.png" />
     <Content Include="img\logo20.png" />
     <Content Include="img\logo_grape_new.png" />
+    <Content Include="img\slider-h.gif" />
+    <Content Include="img\slider-v.gif" />
+    <Content Include="img\sprite.png" />
+    <Content Include="img\sprite_2x.png" />
     <Content Include="img\star-half.png" />
     <Content Include="img\star-off.png" />
     <Content Include="img\star-on.png" />
     <Content Include="img\thumb.png" />
+    <Content Include="img\transparency.png" />
+    <Content Include="img\transtexture.png" />
     <Content Include="img\uploadify-cancel.png" />
     <Content Include="index.html" />
     <Content Include="js\charisma.js" />
@@ -1015,6 +1028,8 @@
     <Content Include="js\jquery.noty.js" />
     <Content Include="js\jquery.raty.min.js" />
     <Content Include="js\jquery.uploadify-3.1.min.js" />
+    <Content Include="js\kendo.all.min.js" />
+    <Content Include="js\kendo.aspnetmvc.min.js" />
     <Content Include="login.html" />
     <Content Include="Silverlight.js" />
     <Content Include="table.html" />
@@ -1043,7 +1058,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="bower_components\bootstrap-tour\.bower.json" />
     <Content Include="bower_components\bootstrap-tour\.travis.yml" />

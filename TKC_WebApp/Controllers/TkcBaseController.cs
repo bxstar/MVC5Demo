@@ -24,6 +24,26 @@ namespace TKC_WebApp.Controllers
         /// </summary>
         protected BusinessUserHandler bllUserHandler = new BusinessUserHandler();
 
+        /// <summary>
+        /// 关键词业务逻辑
+        /// </summary>
+        protected BusinessKeywordHandler bllKeyword = new BusinessKeywordHandler();
+
+        /// <summary>
+        /// Web服务代理类，用于宝贝找词，词相关指数的存取
+        /// </summary>
+        protected iclickpro.BusinessLayer.WService.FindWord.WebServiceForKeywordForecast wsProxyFindWord = new iclickpro.BusinessLayer.WService.FindWord.WebServiceForKeywordForecast();
+
+        /// <summary>
+        /// Web服务代理类，用于词大盘数据的获取
+        /// </summary>
+        protected iclickpro.BusinessLayer.WService.WebServiceForKeywordForecast wsProxyWordData = new iclickpro.BusinessLayer.WService.WebServiceForKeywordForecast();
+
+        /// <summary>
+        /// Web服务代理类，用于淘词数据获取
+        /// </summary>
+        protected iclickpro.BusinessLayer.WService.TaoCi.WebServiceForTaoCi wsProxyTaoCi = new iclickpro.BusinessLayer.WService.TaoCi.WebServiceForTaoCi();
+
         #region 全局配置
         public readonly string Const_AppKey = CommonFunction.GetAppSetting("AppKey");
         #endregion

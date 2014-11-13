@@ -94,13 +94,13 @@ namespace iclickpro.BusinessLayer
             {
                 return null;
             }
-            int intWordIndex = 0;
+            //int intWordIndex = 0;
             foreach (var wordBase in arrWordBase)
             {
                 EntityWordData itemWord = new EntityWordData();
                 if (wordBase.reord_base != null && wordBase.reord_base.Count() > 0)
                 {
-                    itemWord.id = Convert.ToString(++intWordIndex);
+                    //itemWord.id = ++intWordIndex;
                     itemWord.word = wordBase.word;
                     var wordIndex = wordBase.reord_base[0];
 
@@ -150,13 +150,13 @@ namespace iclickpro.BusinessLayer
                 return null;
             }
 
-            int intWordIndex = 0;
+            //int intWordIndex = 0;     //排序过滤后再计算序号，否则序号呈现给前台后不连续很难看
             foreach (var wordBase in arrWordBase)
             {
                 EntityWordData itemWord = new EntityWordData();
                 if (wordBase.reord_base != null && wordBase.reord_base.Count() > 0)
                 {
-                    itemWord.id = Convert.ToString(++intWordIndex);
+                    //itemWord.id = ++intWordIndex;
                     itemWord.word = wordBase.word;
                     var wordIndex = wordBase.reord_base[0];
 

@@ -191,6 +191,12 @@ namespace iclickpro.BusinessLayer
                 BusinessMQ.SendMsgToExchange(user, exchangeName, DynamicJsonParser.FromObject(mail));
             }
 
+            //序号
+            resultFindKeyword.Each((o, index) =>
+            {
+                o.id = index + 1;
+            });
+
             //设置缓存 
             CommonHandler.SetUserItemFindKeywordCache(user.fSubUserName, itemOnline.item_id, resultFindKeyword);
             logger.InfoFormat("用户：{0}，宝贝：{1}，设置关键词缓存完成，数量：{2}", user.fUserName, itemOnline.item_id, resultFindKeyword.Count);

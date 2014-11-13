@@ -220,6 +220,7 @@ function docReady() {
     //gallery colorbox
     $('.thumbnail img').click(function () {
         $("#txtItemIdOrUrl").val("http://item.taobao.com/item.htm?id=" + $(this).attr("id"));
+        //$("#itemTitle").html($(this).parent().attr("title"));
     });
 
     //gallery fullscreen
@@ -441,12 +442,24 @@ $.extend($.fn.dataTableExt.oPagination, {
     }
 });
 
-$.fn.smartFloat = function () {
-    var position = function (element) {
-        var top = element.position().top, pos = element.css("position"); width = element.css("width");
+$.fn.smartFloat = function (realTop) {
+    var position = function (element, realTop) {
+        var top;
+        if (realTop) {
+            top = realTop;
+        }
+        else {
+            top = element.position().top;
+            if (top == 0) {
+                top = element.offset().top;
+            }
+        }
+        pos = element.css("position"); width = element.css("width");
+        //console.log("calTop=" + top);
+        //console.log("realTop=" + realTop);
         $(window).scroll(function () {
             //$('#divFloat .box-tkc').css("background-color", $('body').css("background-color"));
-            var scrolls = $(this).scrollTop();
+            var scrolls = $(document).scrollTop();
             if (scrolls > top) {
                 if (window.XMLHttpRequest) {
                     element.css({
@@ -462,14 +475,14 @@ $.fn.smartFloat = function () {
                 }
             } else {
                 element.css({
-                    position: pos,
+                    position: "static",
                     top: top
                 });
             }
         });
     };
     return $(this).each(function () {
-        position($(this));
+        position($(this), realTop);
     });
 };
 

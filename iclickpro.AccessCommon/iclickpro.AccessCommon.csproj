@@ -51,6 +51,7 @@
     <Compile Include="ConvertEntityClass.cs" />
     <Compile Include="CryptHelper.cs" />
     <Compile Include="DynamicJsonParser.cs" />
+    <Compile Include="ExtendMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendMail.cs" />
     <Compile Include="SqlNameAndParamer.cs" />

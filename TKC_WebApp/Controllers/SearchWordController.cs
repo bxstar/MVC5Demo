@@ -61,7 +61,7 @@ namespace TKC_WebApp.Controllers
             EntityUser session = Session["user"] as EntityUser;
             List<EntityWordData> lst = bllKeyword.GetItemKeywords(session, itemUrl);
 
-            var result = lst.ToDataSourceResult(request);
+            DataSourceResult result = lst.ToDataSourceResult(request);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

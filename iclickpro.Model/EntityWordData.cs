@@ -14,7 +14,7 @@ namespace iclickpro.Model
         /// <summary>
         /// 内部ID
         /// </summary>
-        public string id { get; set; } 
+        public int id { get; set; } 
 
         /// <summary>
         /// 关键词

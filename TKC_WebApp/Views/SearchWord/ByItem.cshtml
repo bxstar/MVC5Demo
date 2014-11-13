@@ -25,16 +25,16 @@
                             </div>
                         </div>
                         <div class="box-content row" style="margin:0px;padding:10px;">
-                            <form class="form-inline" role="form" >
+                            <div class="form-inline" role="form">
                                 <div class="form-group ">
                                     <label class="control-label" for="txtItemIdOrUrl">宝贝链接：</label>
                                     <div class="input-group" style="min-width:600px;">
                                         <input class="form-control" id="txtItemIdOrUrl" placeholder="http://item.taobao.com/item.htm?id=xxxxxxxxx" value="http://item.taobao.com/item.htm?id=@ViewBag.ItemOnline.item_id" type="text">
                                     </div>
-                                    <button class="btn btn-primary" onclick="searchWord(); return false;" >开始找词</button>
+                                    <button class="btn btn-primary" onclick="searchWord();" >开始找词</button>
                                     <button class="btn btn-default">打开宝贝</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,12 +49,12 @@
                         </div>*@
                         <div class="box-content" style="margin:0px;padding:0px;">
                             <ul class="nav nav-tabs" id="myTab" style="margin:0px;">
-                                <li id="tabItemList" class="active"><a href="#itemList">我的宝贝</a></li>
-                                <li id="tabWordList" ><a href="#wordList">关键词</a></li>
+                                <li id="tabItemList" class="active"><a href="#itemList" onclick="itemListClick();">我的宝贝</a></li>
+                                <li id="tabWordList" ><a href="#wordList" onclick="wordListClick();">关键词</a></li>
                             </ul>
 
-                            <div id="myTabContent" class="tab-content" style="padding:10px;">
-                                <div id="itemList" class="tab-pane active">
+                            <div id="myTabContent" class="tab-content" >
+                                <div id="itemList" class="tab-pane active" style="padding:10px;">
                                     <ul class="thumbnails gallery" style="margin:0px;padding:0px;">
                                         @foreach (var item in Model)
                                         {
@@ -68,8 +68,14 @@
                                     </ul>
                                 </div>
                                 <div id="wordList" class="tab-pane">
-                                    <div id="itemTitle"></div>
-                                    <div class="table-responsive"></div>
+                                    <div class="row">
+                                        <span class="col-md-2">宝贝标题：</span>
+                                        <span id="itemTitle" class="col-md-8"></span>
+                                        <span id="waitSearchWord"></span>
+                                    </div>
+                                    <div id="grid" class="table-responsive">
+
+                                    </div>
                                 </div>
 
                             </div>
@@ -122,29 +128,105 @@
     //置顶漂浮
     $(document).ready(function () {
         $("#divItemSelect").smartFloat();
+        
+        
+        
     });
 
+    var gridHeaderFirstTop;
+    function finish() {
+        //console.log($(".k-grid-content").html());
+        //console.log($(".k-grid-header").html());
+        if (!gridHeaderFirstTop) {
+            gridHeaderFirstTop = $(".k-grid-header").position().top
+            if (gridHeaderFirstTop == 0) {
+                gridHeaderFirstTop = $(".k-grid-header").offset().top;
+            }
+        }
+        $(".k-grid-header").smartFloat(gridHeaderFirstTop);
+        $('#waitSearchWord').text("找词完成");
+        $('#divItemSelect').hide();
+    }
+
     function searchWord() {
-        var itemUrl = $('#txtItemIdOrUrl').val();
-        var appRoot = appPath == "/" ? '' : appPath;
+        loading();
 
-        $.ajax({
-            type: "Post",
-            url: appRoot + "/SearchWord/SearchWordByItem",
-            data: { itemUrl: itemUrl },
-            beforeSend: loading,//执行ajax前执行loading函数.直到success
-            success: response //成功时执行Response函数
+        var grid = $("#grid").kendoGrid({
+
+            filterable: true,
+            columns: [
+                    { field: "id", title: "编号", width: 100, "filterable": { "messages": { "info": "显示符合以下条件的行", "isTrue": "为真", "isFalse": "为假", "filter": "过滤", "clear": "清除过滤", "and": "并且", "or": "或者", "selectValue": "-选择值-", "operator": "接线员", "value": "值", "cancel": "取消" }, "operators": { "string": { "eq": "等于", "neq": "不等于", "startswith": "开始于", "endswith": "结束于", "contains": "包含", "doesnotcontain": "不包含" }, "number": { "eq": "等于", "neq": "不等于", "gte": "大于或等于", "gt": "大于", "lte": "小于或等于", "lt": "小于" }, "date": { "eq": "等于", "neq": "不等于", "gte": "大于或等于", "gt": "大于", "lte": "小于或等于", "lt": "小于" }, "enums": { "eq": "等于", "neq": "不等于" } } } },
+                    { field: "word", title: "关键词", width: 250 },
+                    { field: "impressions", title: "展现" }
+            ],
+            groupable: false,
+            //scrollable: true,
+            //height: "800px",
+            sortable: {
+                mode: "single",
+                allowUnsort: false
+            },
+            dataSource: {
+                type: "aspnetmvc-ajax",
+                transport: {
+                    read: {
+                        url: "/SearchWord/SearchWordByItem",
+                        type: "POST",
+                        data: function () {
+                            return {
+                                itemUrl: $('#txtItemIdOrUrl').val()
+                            };
+                        }
+                    },
+                    dataType: "json"
+                },
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                schema: {
+                    data: function (response) {
+                        return response.Data;
+                    },
+                    total: function (response) {
+                        return response.Total;
+                    },
+                    model: {
+                        id: "id",
+                        fields: {
+                            id: { type: "number" },
+                            word: { type: "string" },
+                            impressions: { type: "number" }
+                            //date: { type: "date" }
+                        }
+                    }
+                }
+            },
+            pageable: {
+                refresh: true,
+                pageSizes: true,
+                buttonCount: 20,
+                page: 1,
+                pageSize: 50,
+                pageSizes: [50, 100, 200, 300],
+                messages: {
+                    display: "显示 {0}-{1} 共 {2} 项",
+                    empty: "没有数据",
+                    itemsPerPage: "每页显示数量",
+                    first: "第一页",
+                    last: "最后一页",
+                    next: "下一页",
+                    previous: "上一页"
+                }
+            },
+            dataBound: finish,
         });
-
-        //$('#myModal').modal('show');
-        
     }
 
     function loading() {
         var imgUrl = "/img/ajax-loaders/ajax-loader-6.gif";
         var fullImgUrl = '<img src="{0}"/>'.format(appPath == "/" ? imgUrl : appPath + imgUrl);
         //console.log(fullImgUrl);
-        $('#itemTitle').html(fullImgUrl);
+        $('#waitSearchWord').html(fullImgUrl);
 
         $("#tabItemList").removeClass("active");
         $("#itemList").removeClass("active");
@@ -158,6 +240,21 @@
         $('#itemTitle').text(item.item_title);
     }
 
+    function additionalInfo() {
+        return {
+            itemUrl: $('#txtItemIdOrUrl').val()
+        }
+    }
+
+    function itemListClick() {
+        $('#divItemSelect').show();
+        //alert('itemList');
+    }
+
+    function wordListClick() {
+        //alert('wordList');
+        $('#divItemSelect').hide();
+    }
 </script>
 
 

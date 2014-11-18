@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "淘快词 创意分析";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="ch-container">
+    <div class="row">
+
+        @RenderPage("~/Views/Shared/_PartialLeftMenu.cshtml")
+
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!--创意条件开始-->
+            <div id="divItemSelect" class="row">
+                <div class="box-tkc body-color col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-eye-open"></i> 创意条件</h2>
+                            <div class="box-icon">
+
+                            </div>
+                        </div>
+                        <div class="box-content row" style="margin:0px;padding:10px;">
+                            <div class="col-md-3" >
+                                <label class="control-label" for="txtClick">点击大于：</label>
+                                <input id="txtClick" class="input-text" value="5"  />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label" for="ddlCat">类目：</label>
+                                @(Html.Kendo().ComboBox()
+                                    .Name("ddlCat")
+                                    .HtmlAttributes(new { style = "width: 250px" })
+                                    .Filter("contains")
+                                    .Placeholder("选择或输入类目")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .BindTo(ViewBag.CatList)
+                                    .SelectedIndex(0)
+                                    .Suggest(true)
+                                )
+                            </div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary btn-sm" style="width:100px;" onclick="GetCreativeData();">查询</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--创意列表开始-->
+            <div class="row">
+                <div class="box-tkc col-md-12">
+                    <div class="box-inner">
+                        <div id="gridHeader" class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-picture"></i> 创意列表</h2>
+                            <div class="box-icon">
+
+                            </div>
+                        </div>
+                        <div class="box-content" style="margin:0px;padding:0px">
+                            @(Html.Kendo().Grid<iclickpro.Model.EntityCreativeAnalysis>()
+                            .Name("grid")
+                            .Columns(columns =>
+                            {
+                                //columns.Bound(c => c.local_id).Title("序号").Width(100);
+                                columns.Bound(c => c.creative_url).Title("图片").Width(80).Filterable(false).ClientTemplate("<img src='" + "#:data.creative_url#' alt='#: data.creative_text #' style='cursor:pointer' onclick='showImg(this.src,this.alt);' />");
+                                columns.Bound(c => c.creative_text).Title("创意文字").Width(400);
+                                columns.Bound(c => c.impressions).Title("日均展现").Width(150);
+                                columns.Bound(c => c.click).Title("日均点击").Width(150);
+                                columns.Bound(c => c.ctr).Title("点击率").Width(150);
+                                columns.Bound(c => c.cat_name).Title("类目").Width(250);
+                            })
+                            .Scrollable()
+                            .HtmlAttributes(new { style = "height: 500px" })
+                            .Sortable()
+                            .Filterable()
+                            .Pageable()
+                            .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Model(model => model.Id(p => p.local_id))
+                                .PageSize(100)
+                                .Read(read => read.Action("GetCreativeData", "CreativeAnalysis")
+                                .Data("GetCreativeDataPara")
+                                )
+                            )
+                            )
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3></h3>
+                    </div>
+                    <div class="modal-body">
+                        <img style="width:100%;height:100%;" src="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var gridHeaderFirstTop;
+    //置顶漂浮
+    $(document).ready(function () {
+        //if (!gridHeaderFirstTop) {
+        //    gridHeaderFirstTop = $(".k-grid-header").position().top
+        //    if (gridHeaderFirstTop == 0) {
+        //        gridHeaderFirstTop = $(".k-grid-header").offset().top;
+        //    }
+        //}
+        //$(".k-grid-header").smartFloat(gridHeaderFirstTop);
+    });
+
+    function showImg(imgUrl, txtContent) {
+
+        
+        
+        $("#myModal img").attr("src", imgUrl.replace("_sum.jpg", ""));
+        $("#myModal h3").text(txtContent);
+        $("#myModal").modal('show');
+    }
+
+    function GetCreativeData() {
+        
+        kendo.ui.progress($("#grid"), true);
+        $("#grid").data("kendoGrid").dataSource.read();
+        kendo.ui.progress($("#grid"), false);
+    }
+
+    function GetCreativeDataPara() {
+        return {
+            minClick: $('#txtClick').val(),
+            catId: $("#ddlCat").data("kendoComboBox").value()
+        };
+    }
+
+</script>

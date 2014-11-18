@@ -30,6 +30,11 @@ namespace TKC_WebApp.Controllers
         protected BusinessKeywordHandler bllKeyword = new BusinessKeywordHandler();
 
         /// <summary>
+        /// 创意业务逻辑
+        /// </summary>
+        protected BusinessCreativeHandler bllCreative = new BusinessCreativeHandler();
+
+        /// <summary>
         /// Web服务代理类，用于宝贝找词，词相关指数的存取
         /// </summary>
         protected iclickpro.BusinessLayer.WService.FindWord.WebServiceForKeywordForecast wsProxyFindWord = new iclickpro.BusinessLayer.WService.FindWord.WebServiceForKeywordForecast();

@@ -10,6 +10,9 @@ using System.Web.Mvc;
 
 namespace TKC_WebApp.Controllers
 {
+    /// <summary>
+    /// 用户管理，控制器
+    /// </summary>
     public class UserController : TkcBaseController
     {
         /// <summary>

@@ -11,6 +11,9 @@ using Kendo.Mvc.Extensions;
 
 namespace TKC_WebApp.Controllers
 {
+    /// <summary>
+    /// 宝贝找词拓词组词，控制器
+    /// </summary>
     public class SearchWordController : TkcBaseController
     {
         /// <summary>
@@ -19,9 +22,17 @@ namespace TKC_WebApp.Controllers
         public ActionResult Index()
         {
             EntityUser session = Session["user"] as EntityUser;
-            List<EntityItem> lstItem = CommonHandler.GetUserOnlineItems(session);
+            List<EntityItem> lstItem = new List<EntityItem>();
+            if (session != null)
+            {
+                lstItem = CommonHandler.GetUserOnlineItems(session);
+                ViewBag.UserName = session.fSubUserName;
+            }
+            else
+            {
+                ViewBag.UserName = "访客";
+            }
 
-            ViewBag.UserName = session.fSubUserName;
 
             return View(lstItem);
         }

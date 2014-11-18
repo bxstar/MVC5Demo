@@ -43,7 +43,10 @@ namespace iclickpro.Model
         /// </summary>
         public DbSet<EntityUser> User { get; set; }
 
-
+        /// <summary>
+        /// 创意分析表
+        /// </summary>
+        public DbSet<EntityCreativeAnalysis> CreativeAnalysis { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -80,7 +83,7 @@ namespace iclickpro.Model
         private string GetTableName(System.Type type)
         {
             string oldPrefix = "Entity";
-            string prefix = "ad_";
+            string prefix = "tb_";
             var result = System.Text.RegularExpressions.Regex.Replace(type.Name.Replace(oldPrefix, ""), ".[A-Z]", m => m.Value[0] + "_" + m.Value[1]);
 
             return prefix + result.ToLower();

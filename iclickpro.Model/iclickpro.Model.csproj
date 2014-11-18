@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DefaultDbContext.cs" />
     <Compile Include="EntityCampaignReport.cs" />
+    <Compile Include="EntityCreativeAnalysis.cs" />
     <Compile Include="EntityEnum.cs" />
     <Compile Include="EntityItem.cs" />
     <Compile Include="EntityMail.cs" />

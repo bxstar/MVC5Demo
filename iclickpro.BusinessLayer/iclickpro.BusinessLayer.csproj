@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessCampaignHandler.cs" />
+    <Compile Include="BusinessCreativeHandler.cs" />
     <Compile Include="BusinessKeywordHandler.cs" />
     <Compile Include="BusinessMQ.cs" />
     <Compile Include="BusinessTaobaoApiHandler.cs" />

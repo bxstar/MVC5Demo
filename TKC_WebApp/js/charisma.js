@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     //themes, change CSS with JS
-    //default theme(CSS) is darkly, change it if needed
-    var defaultTheme = 'darkly';
+    //default theme(CSS) is lumen, change it if needed
+    var defaultTheme = 'lumen';
 
     var currentTheme = $.cookie('currentTheme') == null ? defaultTheme : $.cookie('currentTheme');
     var msie = navigator.userAgent.match(/msie/i);

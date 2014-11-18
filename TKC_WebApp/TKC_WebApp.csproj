@@ -1045,6 +1045,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CreativeAnalysisController.cs" />
     <Compile Include="Controllers\SearchWordController.cs" />
     <Compile Include="Controllers\TkcBaseController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1273,6 +1274,9 @@
     <Content Include="Views\Shared\_PartialLeftMenu.cshtml" />
     <Content Include="Views\SearchWord\ByWord.cshtml" />
     <Content Include="Views\SearchWord\ByItem.cshtml" />
+    <Content Include="Views\CreativeAnalysis\Index.cshtml" />
+    <Content Include="Views\CreativeAnalysis\IndexPub.cshtml" />
+    <None Include="Properties\PublishProfiles\淘快词2015.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

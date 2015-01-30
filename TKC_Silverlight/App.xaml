@@ -2,6 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              x:Class="TKC_Silverlight.App" xmlns:my="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
-<my:String x:Key="DevExpress.Xpf.License">DE-6F-73-C4-4F-C3-B1-C6-2D-55-78-6B-62-3A-D4-26-A4-F9-85-6B</my:String>
+<my:String x:Key="DevExpress.Xpf.License">F4-A6-AC-C2-20-91-39-89-41-AF-D3-28-BD-DB-00-85-17-0D-F0-D5</my:String>
   </Application.Resources>
 </Application>

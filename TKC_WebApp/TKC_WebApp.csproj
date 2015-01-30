@@ -953,6 +953,7 @@
     <Content Include="bower_components\responsive-tables\stylesheets\ui.css" />
     <Content Include="calendar.html" />
     <Content Include="chart.html" />
+    <Content Include="ClientBin\TKC_Silverlight.xap" />
     <Content Include="css\animate.min.css" />
     <Content Include="css\bootstrap-cerulean.min.css" />
     <Content Include="css\bootstrap-cyborg.min.css" />
@@ -1286,7 +1287,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ClientBin\" />
     <Folder Include="Models\" />
     <Folder Include="Views\User\" />
   </ItemGroup>

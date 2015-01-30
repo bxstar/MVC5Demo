@@ -73,6 +73,11 @@ namespace iclickpro.Model
         /// </summary>
         public string publish_time { get; set; }
 
+        /// <summary>
+        /// 宝贝的网址
+        /// </summary>
+        public string item_url { get; set; }
+
         #endregion
 
     }

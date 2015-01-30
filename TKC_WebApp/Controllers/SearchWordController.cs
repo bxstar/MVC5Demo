@@ -42,7 +42,38 @@ namespace TKC_WebApp.Controllers
         /// </summary>
         public ActionResult ByItem()
         {
-            return View();
+            EntityUser session = Session["user"] as EntityUser;
+            List<EntityItem> lstItem = new List<EntityItem>();
+            if (session != null)
+            {
+                lstItem = CommonHandler.GetUserOnlineItems(session);
+                ViewBag.UserName = session.fSubUserName;
+            }
+            else
+            {
+                ViewBag.UserName = "访客";
+            }
+
+            string itemUrl = Request["txtItemIdOrUrl"];
+            if (itemUrl != null)
+            {
+                EntityItem itemOnline = CommonHandler.GetItemOnline(itemUrl);
+                if (itemOnline != null)
+                {
+                    itemOnline.item_url = "http://item.taobao.com/item.htm?id=" + itemOnline.item_id;
+                    ViewBag.ItemOnline = itemOnline;
+                }
+                else
+                {
+                    ViewBag.ItemOnline = new EntityItem() { item_url = "" };
+                }
+            }
+            else
+            {
+                ViewBag.ItemOnline = new EntityItem() { item_url = "" };
+            }
+
+            return View(lstItem);
         }
 
         /// <summary>
@@ -52,13 +83,36 @@ namespace TKC_WebApp.Controllers
         {
 
             string itemUrl = Request["txtItemIdOrUrl"];
-            EntityItem itemOnline = CommonHandler.GetItemOnline(itemUrl);
+            if (itemUrl != null)
+            {
+                EntityItem itemOnline = CommonHandler.GetItemOnline(itemUrl);
+                if (itemOnline != null)
+                {
+                    itemOnline.item_url = ItemUrlPrefix + itemOnline.item_id;
+                    ViewBag.ItemOnline = itemOnline;
+                }
+                else
+                {
+                    ViewBag.ItemOnline = new EntityItem() { item_url = "" };
+                }
+            }
+            else
+            {
+                ViewBag.ItemOnline = new EntityItem() { item_url = "" };
+            }
 
+            List<EntityItem> lstItem = new List<EntityItem>();
             EntityUser session = Session["user"] as EntityUser;
-            List<EntityItem> lstItem = CommonHandler.GetUserOnlineItems(session);
+            if (session != null)
+            {
+                lstItem = CommonHandler.GetUserOnlineItems(session);
+                ViewBag.UserName = session.fSubUserName;
+            }
+            else
+            {
+                ViewBag.UserName = "访客";
+            }
 
-            ViewBag.UserName = session.fSubUserName;
-            ViewBag.ItemOnline = itemOnline;
 
             return View("ByItem",lstItem);
         }
@@ -93,6 +147,14 @@ namespace TKC_WebApp.Controllers
             List<EntityItem> lstItem = CommonHandler.GetUserOnlineItems(session);
 
             return Json(lstItem, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetItemInfo()
+        {
+            string itemUrl = Request["itemUrl"];
+            EntityItem itemOnline = CommonHandler.GetItemOnline(itemUrl);
+            itemOnline.item_url = ItemUrlPrefix + itemOnline.item_id;
+            return Json(itemOnline, JsonRequestBehavior.AllowGet);
         }
 	}
 }

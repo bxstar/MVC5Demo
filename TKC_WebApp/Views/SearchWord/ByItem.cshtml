@@ -29,9 +29,9 @@
                                 <div class="form-group ">
                                     <label class="control-label" for="txtItemIdOrUrl">宝贝链接：</label>
                                     <div class="input-group" style="min-width:600px;">
-                                        <input class="form-control" id="txtItemIdOrUrl" placeholder="http://item.taobao.com/item.htm?id=xxxxxxxxx" value="http://item.taobao.com/item.htm?id=@ViewBag.ItemOnline.item_id" type="text">
+                                        <input class="form-control" id="txtItemIdOrUrl" placeholder="http://item.taobao.com/item.htm?id=xxxxxxxxx" value="@ViewBag.ItemOnline.item_url" type="text">
                                     </div>
-                                    <button class="btn btn-primary" onclick="searchWord();" >开始找词</button>
+                                    <button id="btnSearch" class="btn btn-primary" onclick="searchWord();" >开始找词</button>
                                     <button class="btn btn-default">打开宝贝</button>
                                 </div>
                             </div>
@@ -68,10 +68,15 @@
                                     </ul>
                                 </div>
                                 <div id="wordList" class="tab-pane">
-                                    <div class="row">
-                                        <span class="col-md-2">宝贝标题：</span>
-                                        <span id="itemTitle" class="col-md-8"></span>
-                                        <span id="waitSearchWord"></span>
+                                    <div class="row" style="padding:10px;">
+                                        <span class="col-md-1"><img id="currentImg" /></span>
+                                        <span class="col-md-2">
+                                            宝贝标题：<a id="itemTitle" target="_blank" href="javascript:void(0);"></a>
+                                            <br />
+                                            找词状态：<span id="waitSearchWord"></span>
+                                        </span>
+
+                                        <span class="col-md-6"></span>
                                     </div>
                                     <div id="grid" class="table-responsive">
 
@@ -125,18 +130,23 @@
     </div>*@
 
 <script type="text/javascript">
-    //置顶漂浮
-    $(document).ready(function () {
+    
+
+    $(window).load(function () {
+
+        //置顶漂浮
         $("#divItemSelect").smartFloat();
-        
-        
+
+        //宝贝找词，加载完后才能执行
+        if ($("#txtItemIdOrUrl").val() != "") {
+            searchWord();
+        }
         
     });
 
     var gridHeaderFirstTop;
     function finish() {
-        //console.log($(".k-grid-content").html());
-        //console.log($(".k-grid-header").html());
+
         if (!gridHeaderFirstTop) {
             gridHeaderFirstTop = $(".k-grid-header").position().top
             if (gridHeaderFirstTop == 0) {
@@ -149,7 +159,17 @@
     }
 
     function searchWord() {
+        
         loading();
+
+        $.ajax({
+            type: "Post",
+            url: "/SearchWord/GetItemInfo",
+            data: { itemUrl: $('#txtItemIdOrUrl').val() },
+            success: response 
+        });
+
+
 
         var grid = $("#grid").kendoGrid({
 
@@ -238,6 +258,8 @@
     function response(item) {
         console.log(item);
         $('#itemTitle').text(item.item_title);
+        $('#itemTitle').attr("href", item.item_url);
+        $('#currentImg').attr("src", item.pic_url + "_80x80.jpg");
     }
 
     function additionalInfo() {

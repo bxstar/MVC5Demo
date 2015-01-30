@@ -51,6 +51,8 @@ namespace TKC_WebApp.Controllers
 
         #region 全局配置
         public readonly string Const_AppKey = CommonFunction.GetAppSetting("AppKey");
+
+        public readonly string ItemUrlPrefix = "http://item.taobao.com/item.htm?id=";
         #endregion
 
 

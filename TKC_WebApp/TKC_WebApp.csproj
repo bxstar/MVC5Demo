@@ -87,6 +87,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
     <Content Include="blank.html" />
     <Content Include="bower_components\bootstrap-tour\.gitignore" />
     <Content Include="bower_components\bootstrap-tour\build\css\bootstrap-tour.css" />

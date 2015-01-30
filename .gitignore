@@ -33,3 +33,6 @@ bower_components*/
 packages*/
 TKC_WebApp/img*/
 TKC_WebApp/font*/
+lib*/
+*.xap
+*.TMP
